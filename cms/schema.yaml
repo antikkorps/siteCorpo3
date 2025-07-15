@@ -1,0 +1,1135 @@
+version: 1
+directus: 11.9.3
+vendor: sqlite
+collections:
+  # Collection pour les pages
+  - collection: pages
+    meta:
+      collection: pages
+      icon: page
+      note: Pages du site
+      display_template: "{{titre}}"
+      hidden: false
+      singleton: false
+      translations: null
+      archive_field: statut
+      archive_app_filter: true
+      archive_value: archived
+      unarchive_value: draft
+      sort_field: date_publication
+      accountability: all
+      color: null
+      item_duplication_fields: null
+      sort: null
+      group: null
+      collapse: open
+    schema:
+      schema: public
+      name: pages
+      comment: null
+
+  # Collection pour les services
+  - collection: services
+    meta:
+      collection: services
+      icon: medical_services
+      note: Services de stérilisation
+      display_template: "{{titre}}"
+      hidden: false
+      singleton: false
+      translations: null
+      archive_field: statut
+      archive_app_filter: true
+      archive_value: archived
+      unarchive_value: draft
+      sort_field: ordre
+      accountability: all
+      color: null
+      item_duplication_fields: null
+      sort: null
+      group: null
+      collapse: open
+    schema:
+      schema: public
+      name: services
+      comment: null
+
+  # Collection pour les actualités
+  - collection: actualites
+    meta:
+      collection: actualites
+      icon: article
+      note: Actualités et communiqués
+      display_template: "{{titre}}"
+      hidden: false
+      singleton: false
+      translations: null
+      archive_field: statut
+      archive_app_filter: true
+      archive_value: archived
+      unarchive_value: draft
+      sort_field: date_publication
+      accountability: all
+      color: null
+      item_duplication_fields: null
+      sort: null
+      group: null
+      collapse: open
+    schema:
+      schema: public
+      name: actualites
+      comment: null
+
+  # Collection pour les témoignages clients
+  - collection: temoignages
+    meta:
+      collection: temoignages
+      icon: rate_review
+      note: Témoignages clients
+      display_template: "{{nom_client}} - {{etablissement}}"
+      hidden: false
+      singleton: false
+      translations: null
+      archive_field: statut
+      archive_app_filter: true
+      archive_value: archived
+      unarchive_value: draft
+      sort_field: ordre
+      accountability: all
+      color: null
+      item_duplication_fields: null
+      sort: null
+      group: null
+      collapse: open
+    schema:
+      schema: public
+      name: temoignages
+      comment: null
+
+  # Collection pour l'équipe
+  - collection: equipe
+    meta:
+      collection: equipe
+      icon: people
+      note: Membres de l'équipe
+      display_template: "{{nom}} {{prenom}}"
+      hidden: false
+      singleton: false
+      translations: null
+      archive_field: statut
+      archive_app_filter: true
+      archive_value: archived
+      unarchive_value: draft
+      sort_field: ordre
+      accountability: all
+      color: null
+      item_duplication_fields: null
+      sort: null
+      group: null
+      collapse: open
+    schema:
+      schema: public
+      name: equipe
+      comment: null
+
+  # Collection pour les certifications
+  - collection: certifications
+    meta:
+      collection: certifications
+      icon: verified
+      note: Certifications et accréditations
+      display_template: "{{nom}}"
+      hidden: false
+      singleton: false
+      translations: null
+      archive_field: statut
+      archive_app_filter: true
+      archive_value: archived
+      unarchive_value: draft
+      sort_field: ordre
+      accountability: all
+      color: null
+      item_duplication_fields: null
+      sort: null
+      group: null
+      collapse: open
+    schema:
+      schema: public
+      name: certifications
+      comment: null
+
+  # Collection pour les paramètres du site
+  - collection: parametres_site
+    meta:
+      collection: parametres_site
+      icon: settings
+      note: Paramètres globaux du site
+      display_template: "{{titre}}"
+      hidden: false
+      singleton: true
+      translations: null
+      archive_field: null
+      archive_app_filter: false
+      archive_value: null
+      unarchive_value: null
+      sort_field: null
+      accountability: all
+      color: null
+      item_duplication_fields: null
+      sort: null
+      group: null
+      collapse: open
+    schema:
+      schema: public
+      name: parametres_site
+      comment: null
+
+fields:
+  # Champs pour les pages
+  - collection: pages
+    field: id
+    type: integer
+    schema:
+      name: id
+      is_primary_key: true
+      has_auto_increment: true
+  - collection: pages
+    field: titre
+    type: string
+    meta:
+      field: titre
+      interface: input
+      required: true
+      width: full
+  - collection: pages
+    field: slug
+    type: string
+    meta:
+      field: slug
+      interface: input
+      required: true
+      width: full
+      options:
+        slug: true
+    schema:
+      is_unique: true
+  - collection: pages
+    field: contenu
+    type: text
+    meta:
+      field: contenu
+      interface: wysiwyg-html
+      width: full
+  - collection: pages
+    field: image_principale
+    type: uuid
+    meta:
+      field: image_principale
+      interface: file-image
+      note: Image de mise en avant de la page
+      width: half
+    schema:
+      foreign_key_table: directus_files
+      foreign_key_column: id
+  - collection: pages
+    field: meta_description
+    type: string
+    meta:
+      field: meta_description
+      interface: input-multiline
+      note: Description pour le SEO
+      width: full
+  - collection: pages
+    field: statut
+    type: string
+    meta:
+      field: statut
+      interface: select-dropdown
+      options:
+        choices:
+          - text: Brouillon
+            value: draft
+          - text: Publié
+            value: published
+          - text: Archivé
+            value: archived
+      width: half
+      default_value: draft
+  - collection: pages
+    field: ordre
+    type: integer
+    meta:
+      field: ordre
+      interface: input
+      note: Ordre d'affichage
+      width: half
+  - collection: pages
+    field: date_publication
+    type: timestamp
+    meta:
+      field: date_publication
+      interface: datetime
+      width: half
+  - collection: pages
+    field: date_created
+    type: timestamp
+    meta:
+      special:
+        - date-created
+      interface: datetime
+      readonly: true
+      hidden: true
+  - collection: pages
+    field: user_created
+    type: uuid
+    meta:
+      special:
+        - user-created
+      interface: select-dropdown-m2o
+      readonly: true
+      hidden: true
+      options:
+        template: "{{first_name}} {{last_name}}"
+    schema:
+      foreign_key_table: directus_users
+      foreign_key_column: id
+  - collection: pages
+    field: date_updated
+    type: timestamp
+    meta:
+      special:
+        - date-updated
+      interface: datetime
+      readonly: true
+      hidden: true
+  - collection: pages
+    field: user_updated
+    type: uuid
+    meta:
+      special:
+        - user-updated
+      interface: select-dropdown-m2o
+      readonly: true
+      hidden: true
+      options:
+        template: "{{first_name}} {{last_name}}"
+    schema:
+      foreign_key_table: directus_users
+      foreign_key_column: id
+
+  # Champs pour les services
+  - collection: services
+    field: id
+    type: integer
+    schema:
+      name: id
+      is_primary_key: true
+      has_auto_increment: true
+  - collection: services
+    field: titre
+    type: string
+    meta:
+      field: titre
+      interface: input
+      required: true
+      width: full
+  - collection: services
+    field: slug
+    type: string
+    meta:
+      field: slug
+      interface: input
+      required: true
+      width: full
+      options:
+        slug: true
+    schema:
+      is_unique: true
+  - collection: services
+    field: description_courte
+    type: string
+    meta:
+      field: description_courte
+      interface: input-multiline
+      note: Description courte pour les cartes
+      width: full
+  - collection: services
+    field: description_complete
+    type: text
+    meta:
+      field: description_complete
+      interface: wysiwyg-html
+      width: full
+  - collection: services
+    field: image_principale
+    type: uuid
+    meta:
+      field: image_principale
+      interface: file-image
+      note: Image de mise en avant du service
+      width: half
+    schema:
+      foreign_key_table: directus_files
+      foreign_key_column: id
+  - collection: services
+    field: icone
+    type: string
+    meta:
+      field: icone
+      interface: input
+      note: Nom de l'icône (Material Icons)
+      width: half
+  - collection: services
+    field: couleur
+    type: string
+    meta:
+      field: couleur
+      interface: select-color
+      note: Couleur du service
+      width: half
+  - collection: services
+    field: statut
+    type: string
+    meta:
+      field: statut
+      interface: select-dropdown
+      options:
+        choices:
+          - text: Brouillon
+            value: draft
+          - text: Publié
+            value: published
+          - text: Archivé
+            value: archived
+      width: half
+      default_value: draft
+  - collection: services
+    field: ordre
+    type: integer
+    meta:
+      field: ordre
+      interface: input
+      note: Ordre d'affichage
+      width: half
+  - collection: services
+    field: date_created
+    type: timestamp
+    meta:
+      special:
+        - date-created
+      interface: datetime
+      readonly: true
+      hidden: true
+  - collection: services
+    field: user_created
+    type: uuid
+    meta:
+      special:
+        - user-created
+      interface: select-dropdown-m2o
+      readonly: true
+      hidden: true
+      options:
+        template: "{{first_name}} {{last_name}}"
+    schema:
+      foreign_key_table: directus_users
+      foreign_key_column: id
+  - collection: services
+    field: date_updated
+    type: timestamp
+    meta:
+      special:
+        - date-updated
+      interface: datetime
+      readonly: true
+      hidden: true
+  - collection: services
+    field: user_updated
+    type: uuid
+    meta:
+      special:
+        - user-updated
+      interface: select-dropdown-m2o
+      readonly: true
+      hidden: true
+      options:
+        template: "{{first_name}} {{last_name}}"
+    schema:
+      foreign_key_table: directus_users
+      foreign_key_column: id
+
+  # Champs pour les actualités
+  - collection: actualites
+    field: id
+    type: integer
+    schema:
+      name: id
+      is_primary_key: true
+      has_auto_increment: true
+  - collection: actualites
+    field: titre
+    type: string
+    meta:
+      field: titre
+      interface: input
+      required: true
+      width: full
+  - collection: actualites
+    field: slug
+    type: string
+    meta:
+      field: slug
+      interface: input
+      required: true
+      width: full
+      options:
+        slug: true
+    schema:
+      is_unique: true
+  - collection: actualites
+    field: contenu
+    type: text
+    meta:
+      field: contenu
+      interface: wysiwyg-html
+      width: full
+  - collection: actualites
+    field: image_principale
+    type: uuid
+    meta:
+      field: image_principale
+      interface: file-image
+      note: Image de mise en avant de l'actualité
+      width: half
+    schema:
+      foreign_key_table: directus_files
+      foreign_key_column: id
+  - collection: actualites
+    field: statut
+    type: string
+    meta:
+      field: statut
+      interface: select-dropdown
+      options:
+        choices:
+          - text: Brouillon
+            value: draft
+          - text: Publié
+            value: published
+          - text: Archivé
+            value: archived
+      width: half
+      default_value: draft
+  - collection: actualites
+    field: date_publication
+    type: timestamp
+    meta:
+      field: date_publication
+      interface: datetime
+      width: half
+  - collection: actualites
+    field: date_created
+    type: timestamp
+    meta:
+      special:
+        - date-created
+      interface: datetime
+      readonly: true
+      hidden: true
+  - collection: actualites
+    field: user_created
+    type: uuid
+    meta:
+      special:
+        - user-created
+      interface: select-dropdown-m2o
+      readonly: true
+      hidden: true
+      options:
+        template: "{{first_name}} {{last_name}}"
+    schema:
+      foreign_key_table: directus_users
+      foreign_key_column: id
+  - collection: actualites
+    field: date_updated
+    type: timestamp
+    meta:
+      special:
+        - date-updated
+      interface: datetime
+      readonly: true
+      hidden: true
+  - collection: actualites
+    field: user_updated
+    type: uuid
+    meta:
+      special:
+        - user-updated
+      interface: select-dropdown-m2o
+      readonly: true
+      hidden: true
+      options:
+        template: "{{first_name}} {{last_name}}"
+    schema:
+      foreign_key_table: directus_users
+      foreign_key_column: id
+
+  # Champs pour les témoignages
+  - collection: temoignages
+    field: id
+    type: integer
+    schema:
+      name: id
+      is_primary_key: true
+      has_auto_increment: true
+  - collection: temoignages
+    field: nom_client
+    type: string
+    meta:
+      field: nom_client
+      interface: input
+      required: true
+      width: half
+  - collection: temoignages
+    field: prenom_client
+    type: string
+    meta:
+      field: prenom_client
+      interface: input
+      required: true
+      width: half
+  - collection: temoignages
+    field: fonction
+    type: string
+    meta:
+      field: fonction
+      interface: input
+      note: Fonction du client
+      width: half
+  - collection: temoignages
+    field: etablissement
+    type: string
+    meta:
+      field: etablissement
+      interface: input
+      required: true
+      width: half
+  - collection: temoignages
+    field: temoignage
+    type: text
+    meta:
+      field: temoignage
+      interface: input-multiline
+      required: true
+      width: full
+  - collection: temoignages
+    field: photo_client
+    type: uuid
+    meta:
+      field: photo_client
+      interface: file-image
+      note: Photo du client (optionnel)
+      width: half
+    schema:
+      foreign_key_table: directus_files
+      foreign_key_column: id
+  - collection: temoignages
+    field: note
+    type: integer
+    meta:
+      field: note
+      interface: slider
+      note: Note sur 5
+      options:
+        min: 1
+        max: 5
+        step: 1
+      width: half
+  - collection: temoignages
+    field: statut
+    type: string
+    meta:
+      field: statut
+      interface: select-dropdown
+      options:
+        choices:
+          - text: Brouillon
+            value: draft
+          - text: Publié
+            value: published
+          - text: Archivé
+            value: archived
+      width: half
+      default_value: draft
+  - collection: temoignages
+    field: ordre
+    type: integer
+    meta:
+      field: ordre
+      interface: input
+      note: Ordre d'affichage
+      width: half
+  - collection: temoignages
+    field: date_created
+    type: timestamp
+    meta:
+      special:
+        - date-created
+      interface: datetime
+      readonly: true
+      hidden: true
+  - collection: temoignages
+    field: user_created
+    type: uuid
+    meta:
+      special:
+        - user-created
+      interface: select-dropdown-m2o
+      readonly: true
+      hidden: true
+      options:
+        template: "{{first_name}} {{last_name}}"
+    schema:
+      foreign_key_table: directus_users
+      foreign_key_column: id
+  - collection: temoignages
+    field: date_updated
+    type: timestamp
+    meta:
+      special:
+        - date-updated
+      interface: datetime
+      readonly: true
+      hidden: true
+  - collection: temoignages
+    field: user_updated
+    type: uuid
+    meta:
+      special:
+        - user-updated
+      interface: select-dropdown-m2o
+      readonly: true
+      hidden: true
+      options:
+        template: "{{first_name}} {{last_name}}"
+    schema:
+      foreign_key_table: directus_users
+      foreign_key_column: id
+
+  # Champs pour l'équipe
+  - collection: equipe
+    field: id
+    type: integer
+    schema:
+      name: id
+      is_primary_key: true
+      has_auto_increment: true
+  - collection: equipe
+    field: nom
+    type: string
+    meta:
+      field: nom
+      interface: input
+      required: true
+      width: half
+  - collection: equipe
+    field: prenom
+    type: string
+    meta:
+      field: prenom
+      interface: input
+      required: true
+      width: half
+  - collection: equipe
+    field: fonction
+    type: string
+    meta:
+      field: fonction
+      interface: input
+      required: true
+      width: full
+  - collection: equipe
+    field: bio
+    type: text
+    meta:
+      field: bio
+      interface: input-multiline
+      note: Biographie courte
+      width: full
+  - collection: equipe
+    field: photo
+    type: uuid
+    meta:
+      field: photo
+      interface: file-image
+      note: Photo du membre
+      width: half
+    schema:
+      foreign_key_table: directus_files
+      foreign_key_column: id
+  - collection: equipe
+    field: email
+    type: string
+    meta:
+      field: email
+      interface: input
+      note: Email professionnel
+      width: half
+  - collection: equipe
+    field: telephone
+    type: string
+    meta:
+      field: telephone
+      interface: input
+      note: Téléphone professionnel
+      width: half
+  - collection: equipe
+    field: linkedin
+    type: string
+    meta:
+      field: linkedin
+      interface: input
+      note: URL LinkedIn
+      width: half
+  - collection: equipe
+    field: statut
+    type: string
+    meta:
+      field: statut
+      interface: select-dropdown
+      options:
+        choices:
+          - text: Brouillon
+            value: draft
+          - text: Publié
+            value: published
+          - text: Archivé
+            value: archived
+      width: half
+      default_value: draft
+  - collection: equipe
+    field: ordre
+    type: integer
+    meta:
+      field: ordre
+      interface: input
+      note: Ordre d'affichage
+      width: half
+  - collection: equipe
+    field: date_created
+    type: timestamp
+    meta:
+      special:
+        - date-created
+      interface: datetime
+      readonly: true
+      hidden: true
+  - collection: equipe
+    field: user_created
+    type: uuid
+    meta:
+      special:
+        - user-created
+      interface: select-dropdown-m2o
+      readonly: true
+      hidden: true
+      options:
+        template: "{{first_name}} {{last_name}}"
+    schema:
+      foreign_key_table: directus_users
+      foreign_key_column: id
+  - collection: equipe
+    field: date_updated
+    type: timestamp
+    meta:
+      special:
+        - date-updated
+      interface: datetime
+      readonly: true
+      hidden: true
+  - collection: equipe
+    field: user_updated
+    type: uuid
+    meta:
+      special:
+        - user-updated
+      interface: select-dropdown-m2o
+      readonly: true
+      hidden: true
+      options:
+        template: "{{first_name}} {{last_name}}"
+    schema:
+      foreign_key_table: directus_users
+      foreign_key_column: id
+
+  # Champs pour les certifications
+  - collection: certifications
+    field: id
+    type: integer
+    schema:
+      name: id
+      is_primary_key: true
+      has_auto_increment: true
+  - collection: certifications
+    field: nom
+    type: string
+    meta:
+      field: nom
+      interface: input
+      required: true
+      width: full
+  - collection: certifications
+    field: description
+    type: text
+    meta:
+      field: description
+      interface: input-multiline
+      width: full
+  - collection: certifications
+    field: logo
+    type: uuid
+    meta:
+      field: logo
+      interface: file-image
+      note: Logo de la certification
+      width: half
+    schema:
+      foreign_key_table: directus_files
+      foreign_key_column: id
+  - collection: certifications
+    field: date_obtention
+    type: date
+    meta:
+      field: date_obtention
+      interface: datetime
+      note: Date d'obtention
+      width: half
+  - collection: certifications
+    field: date_expiration
+    type: date
+    meta:
+      field: date_expiration
+      interface: datetime
+      note: Date d'expiration (optionnel)
+      width: half
+  - collection: certifications
+    field: statut
+    type: string
+    meta:
+      field: statut
+      interface: select-dropdown
+      options:
+        choices:
+          - text: Brouillon
+            value: draft
+          - text: Publié
+            value: published
+          - text: Archivé
+            value: archived
+      width: half
+      default_value: draft
+  - collection: certifications
+    field: ordre
+    type: integer
+    meta:
+      field: ordre
+      interface: input
+      note: Ordre d'affichage
+      width: half
+  - collection: certifications
+    field: date_created
+    type: timestamp
+    meta:
+      special:
+        - date-created
+      interface: datetime
+      readonly: true
+      hidden: true
+  - collection: certifications
+    field: user_created
+    type: uuid
+    meta:
+      special:
+        - user-created
+      interface: select-dropdown-m2o
+      readonly: true
+      hidden: true
+      options:
+        template: "{{first_name}} {{last_name}}"
+    schema:
+      foreign_key_table: directus_users
+      foreign_key_column: id
+  - collection: certifications
+    field: date_updated
+    type: timestamp
+    meta:
+      special:
+        - date-updated
+      interface: datetime
+      readonly: true
+      hidden: true
+  - collection: certifications
+    field: user_updated
+    type: uuid
+    meta:
+      special:
+        - user-updated
+      interface: select-dropdown-m2o
+      readonly: true
+      hidden: true
+      options:
+        template: "{{first_name}} {{last_name}}"
+    schema:
+      foreign_key_table: directus_users
+      foreign_key_column: id
+
+  # Champs pour les paramètres du site
+  - collection: parametres_site
+    field: id
+    type: integer
+    schema:
+      name: id
+      is_primary_key: true
+      has_auto_increment: true
+  - collection: parametres_site
+    field: titre
+    type: string
+    meta:
+      field: titre
+      interface: input
+      required: true
+      width: full
+  - collection: parametres_site
+    field: logo
+    type: uuid
+    meta:
+      field: logo
+      interface: file-image
+      note: Logo principal du site
+      width: half
+    schema:
+      foreign_key_table: directus_files
+      foreign_key_column: id
+  - collection: parametres_site
+    field: favicon
+    type: uuid
+    meta:
+      field: favicon
+      interface: file-image
+      note: Favicon du site
+      width: half
+    schema:
+      foreign_key_table: directus_files
+      foreign_key_column: id
+  - collection: parametres_site
+    field: description_site
+    type: text
+    meta:
+      field: description_site
+      interface: input-multiline
+      note: Description générale du site pour le SEO
+      width: full
+  - collection: parametres_site
+    field: adresse
+    type: text
+    meta:
+      field: adresse
+      interface: input-multiline
+      note: Adresse complète
+      width: full
+  - collection: parametres_site
+    field: telephone
+    type: string
+    meta:
+      field: telephone
+      interface: input
+      note: Téléphone principal
+      width: half
+  - collection: parametres_site
+    field: email
+    type: string
+    meta:
+      field: email
+      interface: input
+      note: Email principal
+      width: half
+  - collection: parametres_site
+    field: siret
+    type: string
+    meta:
+      field: siret
+      interface: input
+      note: Numéro SIRET
+      width: half
+  - collection: parametres_site
+    field: facebook
+    type: string
+    meta:
+      field: facebook
+      interface: input
+      note: URL Facebook
+      width: half
+  - collection: parametres_site
+    field: linkedin
+    type: string
+    meta:
+      field: linkedin
+      interface: input
+      note: URL LinkedIn
+      width: half
+  - collection: parametres_site
+    field: youtube
+    type: string
+    meta:
+      field: youtube
+      interface: input
+      note: URL YouTube
+      width: half
+  - collection: parametres_site
+    field: date_created
+    type: timestamp
+    meta:
+      special:
+        - date-created
+      interface: datetime
+      readonly: true
+      hidden: true
+  - collection: parametres_site
+    field: user_created
+    type: uuid
+    meta:
+      special:
+        - user-created
+      interface: select-dropdown-m2o
+      readonly: true
+      hidden: true
+      options:
+        template: "{{first_name}} {{last_name}}"
+    schema:
+      foreign_key_table: directus_users
+      foreign_key_column: id
+  - collection: parametres_site
+    field: date_updated
+    type: timestamp
+    meta:
+      special:
+        - date-updated
+      interface: datetime
+      readonly: true
+      hidden: true
+  - collection: parametres_site
+    field: user_updated
+    type: uuid
+    meta:
+      special:
+        - user-updated
+      interface: select-dropdown-m2o
+      readonly: true
+      hidden: true
+      options:
+        template: "{{first_name}} {{last_name}}"
+    schema:
+      foreign_key_table: directus_users
+      foreign_key_column: id
+
+relations: []

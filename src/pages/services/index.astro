@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getImageUrl, getParametresSite, getServices } from '../../lib/directus';
+
+// Récupération des données
+const services = await getServices();
+const parametres = await getParametresSite();
+
+const SITE_TITLE = `Services - ${parametres?.titre || 'MVO Stérilisation'}`;
+const SITE_DESCRIPTION = 'Découvrez nos services de stérilisation médicale : audit, conseil, stérilisation et logistique';
+---
+
+<BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+	<!-- Hero Section -->
+	<section class="mvo-gradient text-white py-16 text-center">
+		<div class="container mx-auto px-4 max-w-6xl">
+			<h1 class="text-4xl md:text-5xl font-bold mb-4 text-white">
+				Nos Services
+			</h1>
+			<p class="text-xl opacity-90">
+				Expertise complète en stérilisation médicale
+			</p>
+		</div>
+	</section>
+
+	<!-- Services Section -->
+	<section class="py-16 bg-gray-50">
+		<div class="container mx-auto px-4 max-w-6xl">
+			<h2 class="text-4xl md:text-5xl font-bold text-center mb-12 text-gray-700">
+				Découvrez notre gamme de services
+			</h2>
+			<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+				{services.map((service) => (
+					<article class="card overflow-hidden">
+						{service.image_principale && (
+							<img 
+								src={getImageUrl(service.image_principale, 400, 200)} 
+								alt={service.titre}
+								class="w-full h-48 object-cover"
+							/>
+						)}
+						<div class="p-8">
+							<div class="flex items-center mb-4">
+								<div class="w-12 h-12 bg-mvo-green rounded-full flex items-center justify-center text-white text-xl mr-4">
+									{service.icone ? service.icone : '🏥'}
+								</div>
+								<h3 class="text-2xl font-semibold text-gray-700">
+									{service.titre}
+								</h3>
+							</div>
+							<p class="text-gray-600 leading-relaxed mb-6">
+								{service.description_courte}
+							</p>
+							<a href={`/services/${service.slug}`} class="btn-primary">
+								En savoir plus
+							</a>
+						</div>
+					</article>
+				))}
+			</div>
+		</div>
+	</section>
+</BaseLayout> 

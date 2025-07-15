@@ -1,0 +1,25 @@
+# Base de données SQLite
+data.db
+data.db-*
+
+# Uploads Directus
+uploads/*
+!uploads/.gitkeep
+
+# Logs
+logs/
+*.log
+
+# Environment
+.env.local
+.env.development
+.env.production
+
+# Node modules
+node_modules/
+
+# Extensions temporaires
+extensions/dist/
+
+# Cache
+.cache/

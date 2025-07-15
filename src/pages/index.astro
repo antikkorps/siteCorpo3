@@ -1,49 +1,142 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getActualites, getImageUrl, getParametresSite, getServices, getTemoignages } from '../lib/directus';
+
+// Récupération des données
+const services = await getServices();
+const actualites = await getActualites(3);
+const temoignages = await getTemoignages();
+const parametres = await getParametresSite();
+
+const SITE_TITLE = parametres?.titre || 'MVO Stérilisation';
+const SITE_DESCRIPTION = parametres?.description_site || 'Leader de la stérilisation médicale en France';
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
+<BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+	<!-- Hero Section -->
+	<section class="mvo-gradient text-white py-24 text-center">
+		<div class="container mx-auto px-4 max-w-6xl">
+			<h1 class="text-5xl md:text-6xl font-bold mb-6 text-white leading-tight">
+				Leader de la Stérilisation Médicale
+			</h1>
+			<p class="text-xl md:text-2xl mb-8 opacity-90 max-w-3xl mx-auto">
+				Expertise unique et complémentarité pour le monde médical depuis notre création
 			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
-</html>
+			<a href="/services" class="btn-secondary">
+				Découvrir nos services
+			</a>
+		</div>
+	</section>
+
+	<!-- Services Section -->
+	<section class="py-16 bg-gray-50">
+		<div class="container mx-auto px-4 max-w-6xl">
+			<h2 class="text-4xl md:text-5xl font-bold text-center mb-12 text-gray-700">
+				Nos Services
+			</h2>
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+				{services.map((service) => (
+					<div class="card p-8">
+						<div class="w-16 h-16 bg-mvo-green rounded-full flex items-center justify-center text-white text-2xl mb-6">
+							{service.icone ? service.icone : '🏥'}
+						</div>
+						<h3 class="text-2xl font-semibold mb-4 text-gray-700">
+							{service.titre}
+						</h3>
+						<p class="text-gray-600 leading-relaxed">
+							{service.description_courte}
+						</p>
+					</div>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- Stats Section -->
+	<section class="bg-gray-50 py-16">
+		<div class="container mx-auto px-4 max-w-6xl">
+			<div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+				<div class="stat-item">
+					<h3 class="text-4xl md:text-5xl font-bold mvo-green mb-2">25+</h3>
+					<p class="text-gray-600 font-medium">Années d'expérience</p>
+				</div>
+				<div class="stat-item">
+					<h3 class="text-4xl md:text-5xl font-bold mvo-green mb-2">500+</h3>
+					<p class="text-gray-600 font-medium">Établissements servis</p>
+				</div>
+				<div class="stat-item">
+					<h3 class="text-4xl md:text-5xl font-bold mvo-green mb-2">99.9%</h3>
+					<p class="text-gray-600 font-medium">Taux de satisfaction</p>
+				</div>
+				<div class="stat-item">
+					<h3 class="text-4xl md:text-5xl font-bold mvo-green mb-2">24/7</h3>
+					<p class="text-gray-600 font-medium">Support disponible</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Testimonials Section -->
+	{temoignages.length > 0 && (
+		<section class="py-16 bg-white">
+			<div class="container mx-auto px-4 max-w-6xl">
+				<h2 class="text-4xl md:text-5xl font-bold text-center mb-12 text-gray-700">
+					Témoignages Clients
+				</h2>
+				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+					{temoignages.slice(0, 3).map((temoignage) => (
+						<div class="bg-gray-50 p-8 rounded-xl border-l-4 border-mvo-green">
+							<p class="text-gray-700 italic mb-4 leading-relaxed">
+								"{temoignage.temoignage}"
+							</p>
+							<div class="font-semibold text-gray-700">
+								{temoignage.prenom_client} {temoignage.nom_client}
+								{temoignage.fonction && (
+									<span class="text-gray-500 text-sm"> - {temoignage.fonction}</span>
+								)}
+							</div>
+							<div class="text-gray-500 text-sm">
+								{temoignage.etablissement}
+							</div>
+						</div>
+					))}
+				</div>
+			</div>
+		</section>
+	)}
+
+	<!-- News Section -->
+	{actualites.length > 0 && (
+		<section class="py-16">
+			<div class="container mx-auto px-4 max-w-6xl">
+				<h2 class="text-4xl md:text-5xl font-bold text-center mb-12 text-gray-700">
+					Actualités
+				</h2>
+				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+					{actualites.map((actualite) => (
+						<article class="card overflow-hidden">
+							{actualite.image_principale && (
+								<img 
+									src={getImageUrl(actualite.image_principale, 400, 200)} 
+									alt={actualite.titre}
+									class="w-full h-48 object-cover"
+								/>
+							)}
+							<div class="p-6">
+								<div class="text-gray-500 text-sm mb-2">
+									{new Date(actualite.date_publication || actualite.date_created).toLocaleDateString('fr-FR')}
+								</div>
+								<h3 class="text-xl font-semibold mb-4 text-gray-700">
+									{actualite.titre}
+								</h3>
+								<p class="text-gray-600 leading-relaxed">
+									{actualite.contenu.substring(0, 150)}...
+								</p>
+							</div>
+						</article>
+					))}
+				</div>
+			</div>
+		</section>
+	)}
+</BaseLayout>

@@ -1,0 +1,27 @@
+{
+  "name": "cms",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "directus start",
+    "bootstrap": "directus bootstrap",
+    "schema:snapshot": "directus schema snapshot --format yaml ./schema.yaml",
+    "schema:apply": "directus schema apply --yes ./schema.yaml",
+    "schema:diff": "directus schema diff ./schema.yaml",
+    "db:reset": "rm -f data.db && npm run bootstrap && npm run schema:apply",
+    "deploy": "npm run schema:apply && npm run start"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@directus/sdk": "^20.0.0",
+    "@tailwindcss/vite": "^4.1.11",
+    "concurrently": "^9.2.0",
+    "directus": "^11.9.3",
+    "gray-matter": "^4.0.3",
+    "tailwindcss": "^4.1.11"
+  }
+}

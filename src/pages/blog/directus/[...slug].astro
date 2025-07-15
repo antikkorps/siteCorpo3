@@ -1,0 +1,32 @@
+---
+import { getArticles, getArticle, type Article } from '../../../lib/directus';
+import BlogPost from '../../../layouts/BlogPost.astro';
+
+export async function getStaticPaths() {
+	const articles = await getArticles();
+	
+	return articles.map((article: Article) => ({
+		params: { slug: article.slug },
+		props: { article },
+	}));
+}
+
+interface Props {
+	article: Article;
+}
+
+const { article } = Astro.props;
+
+// Adapter les données Directus au format attendu par BlogPost
+const postData = {
+	title: article.titre,
+	description: article.extrait || article.meta_description || '',
+	pubDate: new Date(article.date_publication),
+	updatedDate: article.date_modification ? new Date(article.date_modification) : undefined,
+	heroImage: article.image_hero,
+};
+---
+
+<BlogPost {...postData}>
+	<div set:html={article.contenu} />
+</BlogPost>

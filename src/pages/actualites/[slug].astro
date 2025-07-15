@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getActualite, getImageUrl, getParametresSite } from '../../lib/directus';
+
+export async function getStaticPaths() {
+	// Cette fonction sera implémentée quand nous aurons des actualités statiques
+	return [];
+}
+
+const { slug } = Astro.params;
+
+if (!slug) {
+	return Astro.redirect('/actualites');
+}
+
+// Récupération des données
+const actualite = await getActualite(slug);
+const parametres = await getParametresSite();
+
+if (!actualite) {
+	return Astro.redirect('/actualites');
+}
+
+const SITE_TITLE = `${actualite.titre} - ${parametres?.titre || 'MVO Stérilisation'}`;
+const SITE_DESCRIPTION = actualite.contenu.substring(0, 160) + '...';
+---
+
+<BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+	<!-- Hero Section -->
+	<section class="mvo-gradient text-white py-16">
+		<div class="container mx-auto px-4 max-w-4xl">
+			<div class="text-center">
+				<div class="text-sm opacity-80 mb-4">
+					{new Date(actualite.date_publication || actualite.date_created).toLocaleDateString('fr-FR', {
+						year: 'numeric',
+						month: 'long',
+						day: 'numeric'
+					})}
+				</div>
+				<h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight text-white">
+					{actualite.titre}
+				</h1>
+				{actualite.sous_titre && (
+					<p class="text-xl opacity-90 max-w-3xl mx-auto">
+						{actualite.sous_titre}
+					</p>
+				)}
+			</div>
+		</div>
+	</section>
+
+	<!-- Article Content -->
+	<article class="py-16">
+		<div class="container mx-auto px-4 max-w-4xl">
+			{actualite.image_principale && (
+				<div class="mb-8">
+					<img 
+						src={getImageUrl(actualite.image_principale, 800, 400)} 
+						alt={actualite.titre}
+						class="w-full h-64 md:h-96 object-cover rounded-lg"
+					/>
+				</div>
+			)}
+			
+			<div class="prose prose-lg max-w-none">
+				<div class="text-gray-600 leading-relaxed whitespace-pre-wrap">
+					{actualite.contenu}
+				</div>
+			</div>
+
+			<div class="mt-12 pt-8 border-t border-gray-200">
+				<a href="/actualites" class="btn-secondary">
+					← Retour aux actualités
+				</a>
+			</div>
+		</div>
+	</article>
+</BaseLayout> 
