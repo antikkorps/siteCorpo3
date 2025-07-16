@@ -1,0 +1,213 @@
+---
+import { getTemoignages } from '../lib/directus';
+
+// Récupération des témoignages depuis Directus
+let temoignages = await getTemoignages();
+
+// Fallback avec des témoignages en dur si aucun témoignage n'est trouvé
+if (!temoignages || temoignages.length === 0) {
+	temoignages = [
+		{
+			id: 1,
+			nom_client: 'Dubois',
+			prenom_client: 'Marie',
+			fonction: 'Chef de service - Hôpital Saint-Joseph',
+			etablissement: 'Hôpital Saint-Joseph',
+			temoignage: 'MVO Stérilisation nous accompagne depuis plus de 10 ans avec un professionnalisme exemplaire. Leur équipe est réactive, compétente et toujours disponible pour répondre à nos besoins. La qualité de leurs services est remarquable et nous n\'avons jamais eu de problème avec leur matériel. Je recommande vivement leurs services.',
+			note: 5,
+			statut: 'published' as const,
+			date_created: new Date().toISOString(),
+			date_updated: new Date().toISOString()
+		},
+		{
+			id: 2,
+			nom_client: 'Martin',
+			prenom_client: 'Pierre',
+			fonction: 'Directeur technique - Clinique du Parc',
+			etablissement: 'Clinique du Parc',
+			temoignage: 'Une expertise technique de haut niveau et un service client irréprochable. MVO Stérilisation comprend parfaitement les enjeux de notre secteur et nous propose des solutions adaptées à nos besoins spécifiques. Leur équipe technique est très compétente et intervient rapidement en cas de besoin.',
+			note: 5,
+			statut: 'published' as const,
+			date_created: new Date().toISOString(),
+			date_updated: new Date().toISOString()
+		},
+		{
+			id: 3,
+			nom_client: 'Bernard',
+			prenom_client: 'Sophie',
+			fonction: 'Responsable stérilisation - Centre médical Saint-Michel',
+			etablissement: 'Centre médical Saint-Michel',
+			temoignage: 'La qualité et la fiabilité de leurs équipements sont exceptionnelles. Nous utilisons leurs autoclaves depuis plusieurs années et nous n\'avons jamais eu de défaillance majeure. Leur service de maintenance préventive est très efficace et nous permet d\'optimiser la durée de vie de nos équipements.',
+			note: 5,
+			statut: 'published' as const,
+			date_created: new Date().toISOString(),
+			date_updated: new Date().toISOString()
+		}
+	];
+}
+---
+
+<section class="py-16 animate-on-scroll">
+	<div class="container mx-auto px-4 max-w-6xl">
+		<h2 class="text-4xl md:text-5xl font-bold text-center mb-12 mvo-text-primary animate-text">
+			Témoignages Clients
+		</h2>
+		
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-cards">
+			{temoignages.map((temoignage) => (
+				<div class="card p-6 h-80 flex flex-col">
+					<div class="flex items-center mb-4 flex-shrink-0">
+						<div class="w-12 h-12 mvo-bg-green rounded-full flex items-center justify-center text-white font-semibold text-lg mr-4 flex-shrink-0">
+							{temoignage.prenom_client.charAt(0)}
+						</div>
+						<div class="min-w-0 flex-1">
+							<h4 class="font-semibold text-gray-800 truncate">{temoignage.prenom_client} {temoignage.nom_client}</h4>
+							<p class="text-sm text-gray-600 truncate">{temoignage.fonction}</p>
+						</div>
+					</div>
+					
+					<div class="flex mb-4 flex-shrink-0">
+						{Array.from({ length: temoignage.note || 5 }).map(() => (
+							<svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
+								<path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+							</svg>
+						))}
+					</div>
+					
+					<div class="flex-1 min-h-0 mb-4">
+						<p class="text-gray-600 leading-relaxed line-clamp-4">
+							{temoignage.temoignage.substring(0, 120)}...
+						</p>
+					</div>
+					
+					<button 
+						class="btn-secondary w-full flex-shrink-0"
+						onclick={`openTestimonialModal('${temoignage.id}')`}
+					>
+						Lire plus
+					</button>
+				</div>
+			))}
+		</div>
+	</div>
+</section>
+
+<script define:vars={{ temoignages }}>
+	let modal = null;
+	
+	function createModal() {
+		// Supprimer la modale existante si elle existe
+		const existingModal = document.getElementById('testimonial-modal');
+		if (existingModal) {
+			existingModal.remove();
+		}
+		
+		// Créer la nouvelle modale
+		modal = document.createElement('div');
+		modal.id = 'testimonial-modal';
+		modal.className = 'fixed inset-0 z-[99999] hidden';
+		modal.style.cssText = 'position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 99999;';
+		
+		modal.innerHTML = `
+			<!-- Backdrop -->
+			<div 
+				id="modal-backdrop"
+				class="absolute inset-0 bg-white/80 backdrop-blur-sm"
+				onclick="closeTestimonialModal()"
+			></div>
+			
+			<!-- Modal Content -->
+			<div class="absolute inset-0 flex items-center justify-center p-4">
+				<div 
+					id="modal-content"
+					class="bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto relative"
+					onclick="event.stopPropagation()"
+				>
+					<div class="p-6">
+						<div id="modal-body">
+							<!-- Le contenu sera injecté ici par JavaScript -->
+						</div>
+					</div>
+					
+					<button 
+						class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+						onclick="closeTestimonialModal()"
+					>
+						<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+						</svg>
+					</button>
+				</div>
+			</div>
+		`;
+		
+		// Ajouter la modale au body
+		document.body.appendChild(modal);
+	}
+	
+	function openTestimonialModal(temoignageId) {
+		if (!modal) {
+			createModal();
+		}
+		
+		const temoignage = temoignages.find(t => t.id.toString() === temoignageId);
+		if (!temoignage || !modal) return;
+		
+		const modalBody = document.getElementById('modal-body');
+		if (!modalBody) return;
+		
+		// Injecter le contenu
+		modalBody.innerHTML = `
+			<div class="flex items-start mb-6">
+				<div class="w-16 h-16 mvo-bg-green rounded-full flex items-center justify-center text-white font-bold text-xl mr-6 flex-shrink-0">
+					${temoignage.prenom_client.charAt(0)}
+				</div>
+				<div class="flex-1">
+					<h3 class="text-2xl font-bold text-gray-800 mb-2">
+						${temoignage.prenom_client} ${temoignage.nom_client}
+					</h3>
+					<p class="text-lg text-gray-600 mb-1">
+						${temoignage.fonction}
+					</p>
+					<p class="text-gray-500">
+						${temoignage.etablissement}
+					</p>
+				</div>
+			</div>
+			
+			<div class="flex mb-6">
+				${Array.from({ length: temoignage.note || 5 }).map(() => 
+					'<svg class="w-6 h-6 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>'
+				).join('')}
+			</div>
+			
+			<div class="text-gray-700 leading-relaxed text-lg">
+				"${temoignage.temoignage}"
+			</div>
+		`;
+		
+		// Afficher la modale
+		modal.style.display = 'block';
+		document.body.style.overflow = 'hidden';
+	}
+	
+	function closeTestimonialModal() {
+		if (!modal) return;
+		modal.style.display = 'none';
+		document.body.style.overflow = 'auto';
+	}
+	
+	// Exposer les fonctions globalement
+	window.openTestimonialModal = openTestimonialModal;
+	window.closeTestimonialModal = closeTestimonialModal;
+	
+	// Fermer avec la touche Escape
+	document.addEventListener('keydown', (e) => {
+		if (e.key === 'Escape' && modal && modal.style.display !== 'none') {
+			closeTestimonialModal();
+		}
+	});
+	
+	// Créer la modale au chargement
+	createModal();
+</script> 

@@ -1,5 +1,6 @@
 ---
 import AnimatedCounter from '../components/AnimatedCounter.astro';
+import Testimonials from '../components/Testimonials.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getActualites, getImageUrl, getParametresSite, getServices, getTemoignages } from '../lib/directus';
 
@@ -53,6 +54,9 @@ const SITE_DESCRIPTION = parametres?.description_site || 'Leader de la stérilis
 		</div>
 	</section>
 
+	<!-- Testimonials Section -->
+	<Testimonials />
+
 	<!-- Stats Section -->
 	<section class="mvo-bg-gray-10 py-16 animate-on-scroll">
 		<div class="container mx-auto px-4 max-w-6xl">
@@ -84,35 +88,6 @@ const SITE_DESCRIPTION = parametres?.description_site || 'Leader de la stérilis
 			</div>
 		</div>
 	</section>
-
-	<!-- Testimonials Section -->
-	{temoignages.length > 0 && (
-		<section class="py-16 mvo-bg-white animate-on-scroll">
-			<div class="container mx-auto px-4 max-w-6xl">
-				<h2 class="text-4xl md:text-5xl font-bold text-center mb-12 mvo-text-primary animate-text">
-					Témoignages Clients
-				</h2>
-				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-cards">
-					{temoignages.slice(0, 3).map((temoignage) => (
-						<div class="mvo-bg-gray-10 p-8 rounded-xl border-l-4 border-mvo-green">
-							<p class="text-gray-700 italic mb-4 leading-relaxed">
-								"{temoignage.temoignage}"
-							</p>
-							<div class="font-semibold text-gray-700">
-								{temoignage.prenom_client} {temoignage.nom_client}
-								{temoignage.fonction && (
-									<span class="text-gray-500 text-sm"> - {temoignage.fonction}</span>
-								)}
-							</div>
-							<div class="text-gray-500 text-sm">
-								{temoignage.etablissement}
-							</div>
-						</div>
-					))}
-				</div>
-			</div>
-		</section>
-	)}
 
 	<!-- News Section -->
 	{actualites.length > 0 && (

@@ -99,6 +99,14 @@
   box-sizing: border-box;
 }
 
+/* Line clamp utilities */
+.line-clamp-4 {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 html {
   font-family: system-ui, sans-serif;
   background: var(--bg-mvo-white);
