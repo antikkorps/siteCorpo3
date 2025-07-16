@@ -10,7 +10,7 @@
   --mvo-green: #3c6634;
   --mvo-dark-green: #182918;
 
-  /* Dégradé officiel MVO (on y touche pas) */
+  /* Dégradé officiel MVO */
   --mvo-gradient-from: #263443;
   --mvo-gradient-to: #3a899d;
 
@@ -42,6 +42,56 @@
   --mvo-warning: #bdac3a;
   --mvo-error: #dc3545;
   --mvo-info: #3a899d;
+
+  /* Variables pour les textes spécifiques */
+  --text-mvo-white: var(--mvo-white);
+  --text-mvo-accent: var(--mvo-accent);
+  --text-mvo-accent-light: #d4c44a;
+  --text-mvo-accent-dark: #a89c2e;
+
+  /* Variables pour les fonds spécifiques */
+  --bg-mvo-primary: var(--mvo-primary);
+  --bg-mvo-secondary: var(--mvo-secondary);
+  --bg-mvo-dark: var(--mvo-dark);
+  --bg-mvo-accent: var(--mvo-accent);
+  --bg-mvo-green: var(--mvo-green);
+  --bg-mvo-dark-green: var(--mvo-dark-green);
+
+  /* Fonds avec dégradés */
+  --bg-mvo-gradient: linear-gradient(
+    135deg,
+    var(--mvo-gradient-from) 0%,
+    var(--mvo-gradient-to) 100%
+  );
+  --bg-mvo-gradient-reverse: linear-gradient(
+    135deg,
+    var(--mvo-gradient-to) 0%,
+    var(--mvo-gradient-from) 100%
+  );
+  --bg-mvo-gradient-accent: linear-gradient(
+    135deg,
+    var(--mvo-primary) 0%,
+    var(--mvo-accent) 100%
+  );
+
+  /* Fonds avec opacité */
+  --bg-mvo-primary-light: rgba(58, 137, 157, 0.1);
+  --bg-mvo-secondary-light: rgba(66, 111, 131, 0.1);
+  --bg-mvo-dark-light: rgba(38, 52, 67, 0.1);
+  --bg-mvo-accent-light: rgba(189, 172, 58, 0.1);
+  --bg-mvo-green-light: rgba(60, 102, 52, 0.1);
+
+  /* Fonds gris MVO */
+  --bg-mvo-gray: var(--mvo-gray);
+  --bg-mvo-gray-50: rgba(108, 117, 125, 0.5);
+  --bg-mvo-gray-20: rgba(108, 117, 125, 0.2);
+  --bg-mvo-gray-10: rgba(108, 117, 125, 0.1);
+
+  /* Fonds neutres */
+  --bg-mvo-white: var(--mvo-white);
+  --bg-mvo-light-gray: var(--mvo-light-gray);
+  --bg-mvo-gray: var(--mvo-gray);
+  --bg-mvo-dark-gray: var(--mvo-dark-gray);
 }
 
 /* Styles de base */
@@ -51,7 +101,7 @@
 
 html {
   font-family: system-ui, sans-serif;
-  background: #13151a;
+  background: var(--bg-mvo-white);
   background-size: 224px;
 }
 
@@ -83,6 +133,57 @@ code {
 
 .mvo-text-dark-green {
   color: var(--mvo-dark-green);
+}
+
+/* Classes pour les textes spécifiques MVO */
+.mvo-text-white {
+  color: var(--text-mvo-white) !important;
+}
+
+.mvo-text-accent {
+  color: var(--text-mvo-accent) !important;
+}
+
+.mvo-text-accent-light {
+  color: var(--text-mvo-accent-light) !important;
+}
+
+.mvo-text-accent-dark {
+  color: var(--text-mvo-accent-dark) !important;
+}
+
+/* Classes pour les états de survol */
+.mvo-text-white:hover {
+  color: var(--text-mvo-white) !important;
+}
+
+.mvo-text-accent:hover {
+  color: var(--text-mvo-accent) !important;
+}
+
+.mvo-text-accent-light:hover {
+  color: var(--text-mvo-accent-light) !important;
+}
+
+.mvo-text-accent-dark:hover {
+  color: var(--text-mvo-accent-dark) !important;
+}
+
+/* Classes combinées pour le survol */
+.hover\:mvo-text-white:hover {
+  color: var(--text-mvo-white) !important;
+}
+
+.hover\:mvo-text-accent:hover {
+  color: var(--text-mvo-accent) !important;
+}
+
+.hover\:mvo-text-accent-light:hover {
+  color: var(--text-mvo-accent-light) !important;
+}
+
+.hover\:mvo-text-accent-dark:hover {
+  color: var(--text-mvo-accent-dark) !important;
 }
 
 .mvo-bg-primary {
@@ -159,6 +260,95 @@ code {
   background-color: var(--mvo-dark-green-20);
 }
 
+/* Classes pour les fonds spécifiques MVO (nouvelles) */
+.mvo-bg-primary {
+  background-color: var(--bg-mvo-primary);
+}
+
+.mvo-bg-secondary {
+  background-color: var(--bg-mvo-secondary);
+}
+
+.mvo-bg-dark {
+  background-color: var(--bg-mvo-dark);
+}
+
+.mvo-bg-accent {
+  background-color: var(--bg-mvo-accent);
+}
+
+.mvo-bg-green {
+  background-color: var(--bg-mvo-green);
+}
+
+.mvo-bg-dark-green {
+  background-color: var(--bg-mvo-dark-green);
+}
+
+/* Classes pour les dégradés */
+.mvo-bg-gradient {
+  background: var(--bg-mvo-gradient);
+}
+
+.mvo-bg-gradient-reverse {
+  background: var(--bg-mvo-gradient-reverse);
+}
+
+.mvo-bg-gradient-accent {
+  background: var(--bg-mvo-gradient-accent);
+}
+
+/* Classes pour les fonds légers */
+.mvo-bg-primary-light {
+  background-color: var(--bg-mvo-primary-light);
+}
+
+.mvo-bg-secondary-light {
+  background-color: var(--bg-mvo-secondary-light);
+}
+
+.mvo-bg-dark-light {
+  background-color: var(--bg-mvo-dark-light);
+}
+
+.mvo-bg-accent-light {
+  background-color: var(--bg-mvo-accent-light);
+}
+
+.mvo-bg-green-light {
+  background-color: var(--bg-mvo-green-light);
+}
+
+/* Classes pour les fonds neutres */
+.mvo-bg-white {
+  background-color: var(--bg-mvo-white);
+}
+
+.mvo-bg-light-gray {
+  background-color: var(--bg-mvo-light-gray);
+}
+
+.mvo-bg-gray {
+  background-color: var(--bg-mvo-gray);
+}
+
+.mvo-bg-dark-gray {
+  background-color: var(--bg-mvo-dark-gray);
+}
+
+/* Classes pour les fonds gris MVO */
+.mvo-bg-gray-50 {
+  background-color: var(--bg-mvo-gray-50);
+}
+
+.mvo-bg-gray-20 {
+  background-color: var(--bg-mvo-gray-20);
+}
+
+.mvo-bg-gray-10 {
+  background-color: var(--bg-mvo-gray-10);
+}
+
 .mvo-gradient {
   background: linear-gradient(
     135deg,
@@ -169,21 +359,21 @@ code {
 
 /* Styles pour les boutons */
 .btn-primary {
-  background-color: var(--mvo-primary);
+  background: var(--bg-mvo-gradient);
   color: var(--mvo-white);
   border: none;
   padding: 0.75rem 1.5rem;
   border-radius: 0.375rem;
   font-weight: 600;
-  transition: background-color 0.2s;
+  transition: background 0.2s;
 }
 
 .btn-primary:hover {
-  background-color: var(--mvo-dark);
+  background: var(--bg-mvo-gradient-reverse);
 }
 
 .btn-secondary {
-  background-color: var(--mvo-secondary);
+  background-color: var(--bg-mvo-secondary);
   color: var(--mvo-white);
   border: none;
   padding: 0.75rem 1.5rem;
@@ -193,11 +383,11 @@ code {
 }
 
 .btn-secondary:hover {
-  background-color: var(--mvo-dark);
+  background-color: var(--bg-mvo-dark);
 }
 
 .btn-accent {
-  background-color: var(--mvo-accent);
+  background-color: var(--bg-mvo-accent);
   color: var(--mvo-white);
   border: none;
   padding: 0.75rem 1.5rem;
@@ -208,6 +398,113 @@ code {
 
 .btn-accent:hover {
   background-color: var(--mvo-accent-50);
+}
+
+/* Bouton de contact spécifique */
+.btn-contact {
+  background: linear-gradient(135deg, var(--mvo-primary) 0%, var(--mvo-secondary) 100%);
+  color: var(--mvo-white);
+  border: 2px solid transparent;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px -1px rgba(58, 137, 157, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-contact::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btn-contact:hover {
+  background: linear-gradient(135deg, var(--mvo-secondary) 0%, var(--mvo-dark) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px -3px rgba(58, 137, 157, 0.3);
+  border-color: var(--mvo-accent);
+  color: var(--mvo-white);
+}
+
+.btn-contact:hover::before {
+  left: 100%;
+}
+
+.btn-contact:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 6px -1px rgba(58, 137, 157, 0.2);
+}
+
+/* Variantes simples sans animation */
+.btn-primary {
+  background: linear-gradient(135deg, var(--mvo-primary) 0%, var(--mvo-secondary) 100%);
+  color: var(--mvo-white);
+  border: 2px solid transparent;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: background 0.2s ease;
+  box-shadow: 0 4px 6px -1px rgba(58, 137, 157, 0.2);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, var(--mvo-secondary) 0%, var(--mvo-dark) 100%);
+  color: var(--mvo-white);
+}
+
+.btn-secondary {
+  background: var(--mvo-white);
+  color: var(--mvo-primary);
+  border: 2px solid var(--mvo-primary);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px -1px rgba(58, 137, 157, 0.1);
+}
+
+.btn-secondary:hover {
+  background: var(--mvo-primary);
+  color: var(--mvo-white);
+  box-shadow: 0 4px 6px -1px rgba(58, 137, 157, 0.2);
+  color: var(--mvo-white);
+}
+
+.btn-tertiary {
+  background: transparent;
+  color: var(--mvo-primary);
+  border: 2px solid transparent;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.2s ease;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.btn-tertiary:hover {
+  color: var(--mvo-dark);
+  background: var(--mvo-primary-20);
+  border-color: var(--mvo-primary);
 }
 
 /* Styles pour les cartes */
@@ -239,6 +536,9 @@ a:hover {
 body {
   color: var(--mvo-dark-gray);
   line-height: 1.6;
+  background-color: var(--bg-mvo-white);
+  margin: 0;
+  padding: 0;
 }
 
 /* Styles par défaut pour les titres (moins spécifiques) */

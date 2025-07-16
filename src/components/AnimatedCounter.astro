@@ -1,0 +1,60 @@
+---
+export interface Props {
+	value: string | number;
+	suffix?: string;
+	prefix?: string;
+	class?: string;
+}
+
+const { value, suffix = '', prefix = '', class: className = '' } = Astro.props;
+---
+
+<span class={`animated-counter ${className}`} data-value={value} data-prefix={prefix} data-suffix={suffix}>
+	{prefix}{value}{suffix}
+</span>
+
+<script>
+	import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+	gsap.registerPlugin(ScrollTrigger);
+
+	// Animation des compteurs
+	function animateCounters() {
+		gsap.utils.toArray('.animated-counter').forEach((counter) => {
+			const element = counter as HTMLElement;
+			const value = element.dataset.value;
+			const prefix = element.dataset.prefix || '';
+			const suffix = element.dataset.suffix || '';
+			
+			if (!value) return;
+
+			// Extraire le nombre du value (supprimer les caractères non numériques)
+			const numericValue = parseInt(value.toString().replace(/\D/g, ''));
+			const symbol = value.toString().replace(/\d/g, ''); // Garder les symboles comme +, %, etc.
+
+			gsap.from(element, {
+				duration: 2,
+				textContent: 0,
+				ease: 'power2.out',
+				scrollTrigger: {
+					trigger: element,
+					start: 'top 80%',
+					end: 'bottom 20%',
+					toggleActions: 'play none none reverse'
+				},
+				onUpdate: function() {
+					const currentValue = Math.floor(this.targets()[0].textContent);
+					element.textContent = `${prefix}${currentValue}${symbol}${suffix}`;
+				},
+				onComplete: function() {
+					element.textContent = `${prefix}${value}${suffix}`;
+				}
+			});
+		});
+	}
+
+	// Initialiser les animations
+	document.addEventListener('DOMContentLoaded', animateCounters);
+	document.addEventListener('astro:page-load', animateCounters);
+</script> 

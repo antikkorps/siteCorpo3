@@ -1,0 +1,122 @@
+---
+import Icon from '../components/Icon.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getParametresSite } from '../lib/directus';
+
+const parametres = await getParametresSite();
+---
+
+<BaseLayout title="Expertise Métier - MVO Stérilisation" description="Découvrez notre expertise métier en stérilisation médicale et nos solutions innovantes pour le secteur de la santé.">
+	<main>
+		<!-- Hero Section -->
+		<section class="mvo-gradient text-white py-20">
+			<div class="container mx-auto px-4 max-w-6xl">
+				<div class="text-center">
+					<h1 class="hero-title text-4xl md:text-5xl font-bold mb-6">
+						Expertise Métier
+					</h1>
+					<p class="hero-subtitle text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
+						Notre savoir-faire unique dans la stérilisation médicale et notre expertise technique au service de votre établissement de santé.
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- Contenu Principal -->
+		<section class="py-16 mvo-bg-white">
+			<div class="container mx-auto px-4 max-w-6xl">
+				<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+					<div class="animate-section">
+						<h2 class="text-3xl font-bold mb-6 mvo-text-primary animate-text">
+							Notre Expertise Technique
+						</h2>
+						<p class="text-lg mb-6">
+							MVO Stérilisation dispose d'une expertise métier reconnue dans le domaine de la stérilisation médicale. 
+							Notre équipe de professionnels qualifiés maîtrise tous les aspects techniques et réglementaires de ce secteur exigeant.
+						</p>
+						<p class="text-lg mb-8">
+							Nous accompagnons les établissements de santé dans l'optimisation de leurs processus de stérilisation, 
+							en respectant les normes en vigueur et en garantissant la sécurité des patients.
+						</p>
+						
+						<div class="space-y-4 animate-cards">
+							<div class="flex items-start">
+								<Icon name="microscope" size={32} class="mr-3" />
+								<div>
+									<h3 class="font-semibold mb-2">Expertise Technique</h3>
+									<p class="text-gray-600">Maîtrise des technologies de stérilisation et des équipements médicaux</p>
+								</div>
+							</div>
+							<div class="flex items-start">
+								<Icon name="checklist" size={32} class="mr-3" />
+								<div>
+									<h3 class="font-semibold mb-2">Conformité Réglementaire</h3>
+									<p class="text-gray-600">Respect des normes européennes et françaises en vigueur</p>
+								</div>
+							</div>
+							<div class="flex items-start">
+								<Icon name="shield" size={32} class="mr-3" />
+								<div>
+									<h3 class="font-semibold mb-2">Sécurité des Patients</h3>
+									<p class="text-gray-600">Garantie de la traçabilité et de la qualité des processus</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="mvo-bg-gray-10 p-8 rounded-lg animate-on-scroll">
+						<h3 class="text-2xl font-bold mb-6 mvo-text-primary">
+							Nos Domaines d'Expertise
+						</h3>
+						<ul class="space-y-4 animate-cards">
+							<li class="flex items-center">
+								<span class="w-2 h-2 mvo-bg-accent rounded-full mr-3"></span>
+								Stérilisation par vapeur d'eau
+							</li>
+							<li class="flex items-center">
+								<span class="w-2 h-2 mvo-bg-accent rounded-full mr-3"></span>
+								Stérilisation par oxyde d'éthylène
+							</li>
+							<li class="flex items-center">
+								<span class="w-2 h-2 mvo-bg-accent rounded-full mr-3"></span>
+								Stérilisation par plasma d'hydrogène
+							</li>
+							<li class="flex items-center">
+								<span class="w-2 h-2 mvo-bg-accent rounded-full mr-3"></span>
+								Validation et qualification des équipements
+							</li>
+							<li class="flex items-center">
+								<span class="w-2 h-2 mvo-bg-accent rounded-full mr-3"></span>
+								Formation et accompagnement des équipes
+							</li>
+							<li class="flex items-center">
+								<span class="w-2 h-2 mvo-bg-accent rounded-full mr-3"></span>
+								Audit et optimisation des processus
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- CTA Section -->
+		<section class="mvo-bg-gray-10 py-16 animate-section-no-reverse">
+			<div class="container mx-auto px-4 max-w-4xl text-center">
+				<h2 class="text-3xl font-bold mb-6 mvo-text-primary animate-text">
+					Besoin de notre expertise ?
+				</h2>
+				<p class="text-lg mb-8">
+					Notre équipe d'experts est à votre disposition pour vous accompagner dans vos projets de stérilisation.
+				</p>
+				<div class="flex flex-col sm:flex-row gap-4 justify-center">
+					<a href="/contact" class="btn-primary inline-block">
+						Nous Contacter
+					</a>
+					<a href="/audit-accompagnement" class="btn-secondary inline-block">
+						En savoir plus sur nos audits
+					</a>
+				</div>
+			</div>
+		</section>
+	</main>
+</BaseLayout>

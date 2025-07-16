@@ -1,0 +1,210 @@
+---
+import Icon from '../components/Icon.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getParametresSite } from '../lib/directus';
+
+const parametres = await getParametresSite();
+---
+
+<BaseLayout title="Recrutement - MVO Stérilisation" description="Rejoignez l'équipe MVO Stérilisation. Découvrez nos offres d'emploi et opportunités de carrière dans la stérilisation médicale.">
+	<main>
+		<!-- Hero Section -->
+		<section class="mvo-gradient text-white py-20">
+			<div class="container mx-auto px-4 max-w-6xl">
+				<div class="text-center">
+					<h1 class="text-4xl md:text-5xl font-bold mb-6">
+						Recrutement
+					</h1>
+					<p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
+						Rejoignez une équipe passionnée et contribuez à l'excellence de la stérilisation médicale en France.
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- Notre Entreprise -->
+		<section class="py-16">
+			<div class="container mx-auto px-4 max-w-6xl">
+				<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+					<div>
+						<h2 class="text-3xl font-bold mb-6 mvo-text-primary">
+							Pourquoi Rejoindre MVO ?
+						</h2>
+						<p class="text-lg mb-6">
+							MVO Stérilisation est un acteur majeur de la stérilisation médicale en France. 
+							Nous recherchons des talents passionnés pour continuer à innover et exceller dans notre domaine.
+						</p>
+						<p class="text-lg mb-8">
+							Rejoindre notre équipe, c'est participer à une mission essentielle : 
+							garantir la sécurité des patients et la qualité des soins.
+						</p>
+						
+						<div class="space-y-4">
+							<div class="flex items-start">
+								<Icon name="star" size={32} class="mr-3" />
+								<div>
+									<h3 class="font-semibold mb-2">Mission Significative</h3>
+									<p class="text-gray-600">Contribuer à la sécurité sanitaire</p>
+								</div>
+							</div>
+							<div class="flex items-start">
+								<Icon name="arrow" size={32} class="mr-3" />
+								<div>
+									<h3 class="font-semibold mb-2">Évolution de Carrière</h3>
+									<p class="text-gray-600">Opportunités d'évolution et de formation</p>
+								</div>
+							</div>
+							<div class="flex items-start">
+								<Icon name="shield" size={32} class="mr-3" />
+								<div>
+									<h3 class="font-semibold mb-2">Équipe Soudée</h3>
+									<p class="text-gray-600">Ambiance de travail collaborative</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="mvo-bg-gray-10 p-8 rounded-lg">
+						<h3 class="text-2xl font-bold mb-6 mvo-text-primary">
+							Nos Valeurs
+						</h3>
+						<ul class="space-y-4">
+							<li class="flex items-center">
+								<span class="w-2 h-2 mvo-bg-accent rounded-full mr-3"></span>
+								Excellence et qualité
+							</li>
+							<li class="flex items-center">
+								<span class="w-2 h-2 mvo-bg-accent rounded-full mr-3"></span>
+								Innovation et progrès
+							</li>
+							<li class="flex items-center">
+								<span class="w-2 h-2 mvo-bg-accent rounded-full mr-3"></span>
+								Responsabilité et éthique
+							</li>
+							<li class="flex items-center">
+								<span class="w-2 h-2 mvo-bg-accent rounded-full mr-3"></span>
+								Collaboration et solidarité
+							</li>
+							<li class="flex items-center">
+								<span class="w-2 h-2 mvo-bg-accent rounded-full mr-3"></span>
+								Développement durable
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Postes Disponibles -->
+		<section class="mvo-bg-gray-10 py-16">
+			<div class="container mx-auto px-4 max-w-6xl">
+				<h2 class="text-3xl font-bold text-center mb-12 mvo-text-primary">
+					Postes Disponibles
+				</h2>
+				
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+					<div class="card">
+						<h3 class="text-xl font-semibold mb-4 mvo-text-secondary">
+							Technicien de Stérilisation
+						</h3>
+						<p class="text-gray-600 mb-4">
+							Nous recherchons des techniciens qualifiés pour rejoindre nos équipes de stérilisation.
+						</p>
+						<div class="space-y-2 text-sm text-gray-600">
+							<div><strong>Profil recherché :</strong> Formation en stérilisation médicale</div>
+							<div><strong>Expérience :</strong> 2 ans minimum</div>
+							<div><strong>Localisation :</strong> Région parisienne</div>
+						</div>
+						<a href="/contact" class="btn-primary mt-4 inline-block">
+							Postuler
+						</a>
+					</div>
+					
+					<div class="card">
+						<h3 class="text-xl font-semibold mb-4 mvo-text-secondary">
+							Ingénieur Qualité
+						</h3>
+						<p class="text-gray-600 mb-4">
+							Rejoignez notre équipe qualité pour garantir l'excellence de nos processus.
+						</p>
+						<div class="space-y-2 text-sm text-gray-600">
+							<div><strong>Profil recherché :</strong> Diplôme d'ingénieur</div>
+							<div><strong>Expérience :</strong> 3-5 ans en qualité</div>
+							<div><strong>Localisation :</strong> Flexible</div>
+						</div>
+						<a href="/contact" class="btn-primary mt-4 inline-block">
+							Postuler
+						</a>
+					</div>
+				</div>
+				
+				<div class="text-center mt-12">
+					<p class="text-lg mb-6">
+						Vous ne trouvez pas de poste correspondant à votre profil ?
+					</p>
+					<a href="/contact" class="btn-secondary inline-block">
+						Candidature Spontanée
+					</a>
+				</div>
+			</div>
+		</section>
+
+		<!-- Avantages Sociaux -->
+		<section class="py-16">
+			<div class="container mx-auto px-4 max-w-6xl">
+				<h2 class="text-3xl font-bold text-center mb-12 mvo-text-primary">
+					Nos Avantages Sociaux
+				</h2>
+				
+				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+					<div class="text-center">
+						<div class="w-16 h-16 mvo-bg-primary rounded-full flex items-center justify-center text-white text-2xl mb-4 mx-auto">
+							<Icon name="health" size={32} class="text-white" />
+						</div>
+						<h3 class="text-lg font-semibold mb-2">Mutuelle</h3>
+						<p class="text-gray-600">Couverture santé complète</p>
+					</div>
+					
+					<div class="text-center">
+						<div class="w-16 h-16 mvo-bg-secondary rounded-full flex items-center justify-center text-white text-2xl mb-4 mx-auto">
+							<Icon name="graduation" size={32} class="text-white" />
+						</div>
+						<h3 class="text-lg font-semibold mb-2">Formation</h3>
+						<p class="text-gray-600">Développement professionnel</p>
+					</div>
+					
+					<div class="text-center">
+						<div class="w-16 h-16 mvo-bg-accent rounded-full flex items-center justify-center text-white text-2xl mb-4 mx-auto">
+							<Icon name="car" size={32} class="text-white" />
+						</div>
+						<h3 class="text-lg font-semibold mb-2">Transport</h3>
+						<p class="text-gray-600">Prise en charge partielle</p>
+					</div>
+					
+					<div class="text-center">
+						<div class="w-16 h-16 mvo-bg-green rounded-full flex items-center justify-center text-white text-2xl mb-4 mx-auto">
+							<Icon name="food" size={32} class="text-white" />
+						</div>
+						<h3 class="text-lg font-semibold mb-2">Restauration</h3>
+						<p class="text-gray-600">Tickets restaurant</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- CTA Section -->
+		<section class="mvo-bg-gray-10 py-16">
+			<div class="container mx-auto px-4 max-w-4xl text-center">
+				<h2 class="text-3xl font-bold mb-6 mvo-text-primary">
+					Prêt à nous rejoindre ?
+				</h2>
+				<p class="text-lg mb-8">
+					Envoyez-nous votre CV et lettre de motivation pour rejoindre notre équipe.
+				</p>
+				<a href="/contact" class="btn-primary inline-block">
+					Nous Contacter
+				</a>
+			</div>
+		</section>
+	</main>
+</BaseLayout>

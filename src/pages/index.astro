@@ -1,4 +1,5 @@
 ---
+import AnimatedCounter from '../components/AnimatedCounter.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getActualites, getImageUrl, getParametresSite, getServices, getTemoignages } from '../lib/directus';
 
@@ -16,31 +17,31 @@ const SITE_DESCRIPTION = parametres?.description_site || 'Leader de la stérilis
 	<!-- Hero Section -->
 	<section class="mvo-gradient text-white py-24 text-center">
 		<div class="container mx-auto px-4 max-w-6xl">
-			<h1 class="text-5xl md:text-6xl font-bold mb-6 text-white leading-tight">
+			<h1 class="hero-title text-5xl md:text-6xl font-bold mb-6 text-white leading-tight">
 				Leader de la Stérilisation Médicale
 			</h1>
-			<p class="text-xl md:text-2xl mb-8 opacity-90 max-w-3xl mx-auto">
+			<p class="hero-subtitle text-xl md:text-2xl mb-8 opacity-90 max-w-3xl mx-auto">
 				Expertise unique et complémentarité pour le monde médical depuis notre création
 			</p>
-			<a href="/services" class="btn-secondary">
+			<a href="/services" class="hero-cta btn-secondary">
 				Découvrir nos services
 			</a>
 		</div>
 	</section>
 
 	<!-- Services Section -->
-	<section class="py-16 bg-gray-50">
+	<section class="py-16 mvo-bg-gray-10 animate-on-scroll">
 		<div class="container mx-auto px-4 max-w-6xl">
-			<h2 class="text-4xl md:text-5xl font-bold text-center mb-12 text-gray-700">
+			<h2 class="text-4xl md:text-5xl font-bold text-center mb-12 mvo-text-primary animate-text">
 				Nos Services
 			</h2>
-			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-cards">
 				{services.map((service) => (
 					<div class="card p-8">
-						<div class="w-16 h-16 bg-mvo-green rounded-full flex items-center justify-center text-white text-2xl mb-6">
+						<div class="w-16 h-16 mvo-bg-green rounded-full flex items-center justify-center text-white text-2xl mb-6">
 							{service.icone ? service.icone : '🏥'}
 						</div>
-						<h3 class="text-2xl font-semibold mb-4 text-gray-700">
+						<h3 class="text-2xl font-semibold mb-4 mvo-text-primary">
 							{service.titre}
 						</h3>
 						<p class="text-gray-600 leading-relaxed">
@@ -53,23 +54,31 @@ const SITE_DESCRIPTION = parametres?.description_site || 'Leader de la stérilis
 	</section>
 
 	<!-- Stats Section -->
-	<section class="bg-gray-50 py-16">
+	<section class="mvo-bg-gray-10 py-16 animate-on-scroll">
 		<div class="container mx-auto px-4 max-w-6xl">
-			<div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+			<div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center animate-cards">
 				<div class="stat-item">
-					<h3 class="text-4xl md:text-5xl font-bold mvo-green mb-2">25+</h3>
+					<h3 class="text-4xl md:text-5xl font-bold mvo-text-green mb-2">
+						<AnimatedCounter value="25" suffix="+" />
+					</h3>
 					<p class="text-gray-600 font-medium">Années d'expérience</p>
 				</div>
 				<div class="stat-item">
-					<h3 class="text-4xl md:text-5xl font-bold mvo-green mb-2">500+</h3>
+					<h3 class="text-4xl md:text-5xl font-bold mvo-text-green mb-2">
+						<AnimatedCounter value="500" suffix="+" />
+					</h3>
 					<p class="text-gray-600 font-medium">Établissements servis</p>
 				</div>
 				<div class="stat-item">
-					<h3 class="text-4xl md:text-5xl font-bold mvo-green mb-2">99.9%</h3>
+					<h3 class="text-4xl md:text-5xl font-bold mvo-text-green mb-2">
+						<AnimatedCounter value="99.9" suffix="%" />
+					</h3>
 					<p class="text-gray-600 font-medium">Taux de satisfaction</p>
 				</div>
 				<div class="stat-item">
-					<h3 class="text-4xl md:text-5xl font-bold mvo-green mb-2">24/7</h3>
+					<h3 class="text-4xl md:text-5xl font-bold mvo-text-green mb-2">
+						<AnimatedCounter value="24/7" />
+					</h3>
 					<p class="text-gray-600 font-medium">Support disponible</p>
 				</div>
 			</div>
@@ -78,14 +87,14 @@ const SITE_DESCRIPTION = parametres?.description_site || 'Leader de la stérilis
 
 	<!-- Testimonials Section -->
 	{temoignages.length > 0 && (
-		<section class="py-16 bg-white">
+		<section class="py-16 mvo-bg-white animate-on-scroll">
 			<div class="container mx-auto px-4 max-w-6xl">
-				<h2 class="text-4xl md:text-5xl font-bold text-center mb-12 text-gray-700">
+				<h2 class="text-4xl md:text-5xl font-bold text-center mb-12 mvo-text-primary animate-text">
 					Témoignages Clients
 				</h2>
-				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-cards">
 					{temoignages.slice(0, 3).map((temoignage) => (
-						<div class="bg-gray-50 p-8 rounded-xl border-l-4 border-mvo-green">
+						<div class="mvo-bg-gray-10 p-8 rounded-xl border-l-4 border-mvo-green">
 							<p class="text-gray-700 italic mb-4 leading-relaxed">
 								"{temoignage.temoignage}"
 							</p>
@@ -107,12 +116,12 @@ const SITE_DESCRIPTION = parametres?.description_site || 'Leader de la stérilis
 
 	<!-- News Section -->
 	{actualites.length > 0 && (
-		<section class="py-16">
+		<section class="py-16 animate-on-scroll">
 			<div class="container mx-auto px-4 max-w-6xl">
-				<h2 class="text-4xl md:text-5xl font-bold text-center mb-12 text-gray-700">
+				<h2 class="text-4xl md:text-5xl font-bold text-center mb-12 mvo-text-primary animate-text">
 					Actualités
 				</h2>
-				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-cards animate-images">
 					{actualites.map((actualite) => (
 						<article class="card overflow-hidden">
 							{actualite.image_principale && (

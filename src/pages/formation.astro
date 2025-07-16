@@ -1,0 +1,181 @@
+---
+import Icon from '../components/Icon.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getParametresSite } from '../lib/directus';
+
+const parametres = await getParametresSite();
+---
+
+<BaseLayout title="Formation - MVO Stérilisation" description="Formations professionnelles en stérilisation médicale pour vos équipes. Expertise et savoir-faire au service de la qualité.">
+	<main>
+		<!-- Hero Section -->
+		<section class="mvo-gradient text-white py-20">
+			<div class="container mx-auto px-4 max-w-6xl">
+				<div class="text-center">
+					<h1 class="text-4xl md:text-5xl font-bold mb-6">
+						Formation
+					</h1>
+					<p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
+						Formations professionnelles en stérilisation médicale pour développer les compétences de vos équipes.
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- Nos Formations -->
+		<section class="py-16">
+			<div class="container mx-auto px-4 max-w-6xl">
+				<h2 class="text-3xl font-bold text-center mb-12 mvo-text-primary">
+					Nos Programmes de Formation
+				</h2>
+				
+				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+					<div class="card">
+						<div class="w-16 h-16 mvo-bg-primary rounded-full flex items-center justify-center text-white text-2xl mb-6">
+							<Icon name="graduation" size={32} class="text-white" />
+						</div>
+						<h3 class="text-xl font-semibold mb-4">Formation Initiale</h3>
+						<p class="text-gray-600 mb-4">
+							Formation complète pour les nouveaux collaborateurs en stérilisation médicale.
+						</p>
+						<ul class="text-sm text-gray-600 space-y-1">
+							<li>• Bases théoriques de la stérilisation</li>
+							<li>• Utilisation des équipements</li>
+							<li>• Procédures de sécurité</li>
+						</ul>
+					</div>
+					
+					<div class="card">
+						<div class="w-16 h-16 mvo-bg-secondary rounded-full flex items-center justify-center text-white text-2xl mb-6">
+							<Icon name="refresh" size={32} class="text-white" />
+						</div>
+						<h3 class="text-xl font-semibold mb-4">Formation Continue</h3>
+						<p class="text-gray-600 mb-4">
+							Mise à jour des connaissances et perfectionnement des compétences.
+						</p>
+						<ul class="text-sm text-gray-600 space-y-1">
+							<li>• Nouvelles réglementations</li>
+							<li>• Évolutions technologiques</li>
+							<li>• Bonnes pratiques</li>
+						</ul>
+					</div>
+					
+					<div class="card">
+						<div class="w-16 h-16 mvo-bg-accent rounded-full flex items-center justify-center text-white text-2xl mb-6">
+							<Icon name="manager" size={32} class="text-white" />
+						</div>
+						<h3 class="text-xl font-semibold mb-4">Formation Management</h3>
+						<p class="text-gray-600 mb-4">
+							Formation spécifique pour les responsables de services de stérilisation.
+						</p>
+						<ul class="text-sm text-gray-600 space-y-1">
+							<li>• Gestion d'équipe</li>
+							<li>• Optimisation des processus</li>
+							<li>• Conformité réglementaire</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Méthodes Pédagogiques -->
+		<section class="mvo-bg-gray-10 py-16">
+			<div class="container mx-auto px-4 max-w-6xl">
+				<h2 class="text-3xl font-bold text-center mb-12 mvo-text-primary">
+					Nos Méthodes Pédagogiques
+				</h2>
+				
+				<div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+					<div>
+						<h3 class="text-2xl font-bold mb-6 mvo-text-secondary">
+							Formation Théorique
+						</h3>
+						<p class="text-lg mb-6">
+							Apports théoriques solides avec supports pédagogiques adaptés et actualisés.
+						</p>
+						<ul class="space-y-2">
+							<li class="flex items-center">
+								<span class="w-2 h-2 mvo-bg-accent rounded-full mr-3"></span>
+								Cours magistraux interactifs
+							</li>
+							<li class="flex items-center">
+								<span class="w-2 h-2 mvo-bg-accent rounded-full mr-3"></span>
+								Supports numériques et papiers
+							</li>
+							<li class="flex items-center">
+								<span class="w-2 h-2 mvo-bg-accent rounded-full mr-3"></span>
+								Échanges et discussions
+							</li>
+						</ul>
+					</div>
+					
+					<div>
+						<h3 class="text-2xl font-bold mb-6 mvo-text-secondary">
+							Formation Pratique
+						</h3>
+						<p class="text-lg mb-6">
+							Mise en situation réelle avec équipements professionnels et cas concrets.
+						</p>
+						<ul class="space-y-2">
+							<li class="flex items-center">
+								<span class="w-2 h-2 mvo-bg-accent rounded-full mr-3"></span>
+								Travaux pratiques sur équipements
+							</li>
+							<li class="flex items-center">
+								<span class="w-2 h-2 mvo-bg-accent rounded-full mr-3"></span>
+								Simulations de situations réelles
+							</li>
+							<li class="flex items-center">
+								<span class="w-2 h-2 mvo-bg-accent rounded-full mr-3"></span>
+								Accompagnement personnalisé
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Certification -->
+		<section class="py-16">
+			<div class="container mx-auto px-4 max-w-4xl">
+				<div class="mvo-bg-primary-20 p-8 rounded-lg text-center">
+					<h2 class="text-3xl font-bold mb-6 mvo-text-primary">
+						Certification et Validation
+					</h2>
+					<p class="text-lg mb-6">
+						Toutes nos formations débouchent sur une certification reconnue par les autorités de santé.
+					</p>
+					<div class="flex flex-col sm:flex-row gap-4 justify-center">
+						<div class="flex items-center">
+							<Icon name="graduation" size={32} class="mr-2" />
+							<span>Attestation de formation</span>
+						</div>
+						<div class="flex items-center">
+							<Icon name="checklist" size={32} class="mr-2" />
+							<span>Évaluation des compétences</span>
+						</div>
+						<div class="flex items-center">
+							<Icon name="refresh" size={32} class="mr-2" />
+							<span>Suivi post-formation</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- CTA Section -->
+		<section class="mvo-bg-gray-10 py-16">
+			<div class="container mx-auto px-4 max-w-4xl text-center">
+				<h2 class="text-3xl font-bold mb-6 mvo-text-primary">
+					Prêt à former vos équipes ?
+				</h2>
+				<p class="text-lg mb-8">
+					Contactez-nous pour un programme de formation personnalisé à vos besoins.
+				</p>
+				<a href="/contact" class="btn-primary inline-block">
+					Demander un Devis
+				</a>
+			</div>
+		</section>
+	</main>
+</BaseLayout>

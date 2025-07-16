@@ -1,0 +1,145 @@
+---
+import Icon from '../components/Icon.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getParametresSite } from '../lib/directus';
+
+const parametres = await getParametresSite();
+---
+
+<BaseLayout title="Stérilisation & Logistique - MVO Stérilisation" description="Services complets de stérilisation médicale et solutions logistiques adaptées à vos besoins.">
+	<main>
+		<!-- Hero Section -->
+		<section class="mvo-gradient text-white py-20">
+			<div class="container mx-auto px-4 max-w-6xl">
+				<div class="text-center">
+					<h1 class="text-4xl md:text-5xl font-bold mb-6">
+						Stérilisation & Logistique
+					</h1>
+					<p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
+						Solutions complètes de stérilisation médicale et services logistiques optimisés pour votre établissement.
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- Services de Stérilisation -->
+		<section class="py-16">
+			<div class="container mx-auto px-4 max-w-6xl">
+				<h2 class="text-3xl font-bold text-center mb-12 mvo-text-primary">
+					Nos Services de Stérilisation
+				</h2>
+				
+				<div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+					<div>
+						<h3 class="text-2xl font-bold mb-6 mvo-text-secondary">
+							Stérilisation par Vapeur d'Eau
+						</h3>
+						<p class="text-lg mb-6">
+							Méthode de référence pour la stérilisation des dispositifs médicaux thermorésistants. 
+							Nous utilisons des autoclaves de dernière génération pour garantir une stérilisation optimale.
+						</p>
+						<ul class="space-y-2">
+							<li class="flex items-center">
+								<span class="w-2 h-2 bg-mvo-accent rounded-full mr-3"></span>
+								Température contrôlée : 121°C à 134°C
+							</li>
+							<li class="flex items-center">
+								<span class="w-2 h-2 bg-mvo-accent rounded-full mr-3"></span>
+								Pression adaptée selon les cycles
+							</li>
+							<li class="flex items-center">
+								<span class="w-2 h-2 bg-mvo-accent rounded-full mr-3"></span>
+								Traçabilité complète des cycles
+							</li>
+						</ul>
+					</div>
+					
+					<div>
+						<h3 class="text-2xl font-bold mb-6 mvo-text-secondary">
+							Stérilisation par Oxyde d'Éthylène
+						</h3>
+						<p class="text-lg mb-6">
+							Solution pour les dispositifs thermosensibles. Notre expertise garantit une stérilisation 
+							efficace tout en préservant l'intégrité des matériaux.
+						</p>
+						<ul class="space-y-2">
+							<li class="flex items-center">
+								<span class="w-2 h-2 bg-mvo-accent rounded-full mr-3"></span>
+								Température basse : 30°C à 60°C
+							</li>
+							<li class="flex items-center">
+								<span class="w-2 h-2 bg-mvo-accent rounded-full mr-3"></span>
+								Pénétration dans les matériaux complexes
+							</li>
+							<li class="flex items-center">
+								<span class="w-2 h-2 bg-mvo-accent rounded-full mr-3"></span>
+								Aération contrôlée post-stérilisation
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Services Logistiques -->
+		<section class="mvo-bg-gray-10 py-16">
+			<div class="container mx-auto px-4 max-w-6xl">
+				<h2 class="text-3xl font-bold text-center mb-12 mvo-text-primary">
+					Services Logistiques
+				</h2>
+				
+				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+					<div class="card">
+						<div class="w-16 h-16 mvo-bg-primary rounded-full flex items-center justify-center text-white text-2xl mb-6">
+							<Icon name="truck" size={32} class="text-white" />
+						</div>
+						<h3 class="text-xl font-semibold mb-4">Transport Sécurisé</h3>
+						<p class="text-gray-600">
+							Livraison sécurisée de vos dispositifs médicaux avec respect de la chaîne du froid.
+						</p>
+					</div>
+					
+					<div class="card">
+						<div class="w-16 h-16 mvo-bg-secondary rounded-full flex items-center justify-center text-white text-2xl mb-6">
+							<Icon name="cardboard" size={32} class="text-white" />
+						</div>
+						<h3 class="text-xl font-semibold mb-4">Conditionnement</h3>
+						<p class="text-gray-600">
+							Conditionnement adapté à chaque type de dispositif et méthode de stérilisation.
+						</p>
+					</div>
+					
+					<div class="card">
+						<div class="w-16 h-16 mvo-bg-accent rounded-full flex items-center justify-center text-white text-2xl mb-6">
+							<Icon name="tracking" size={32} class="text-white" />
+						</div>
+						<h3 class="text-xl font-semibold mb-4">Traçabilité</h3>
+						<p class="text-gray-600">
+							Suivi complet de vos dispositifs avec documentation et certificats de stérilisation.
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- CTA Section -->
+		<section class="py-16">
+			<div class="container mx-auto px-4 max-w-4xl text-center">
+				<h2 class="text-3xl font-bold mb-6 mvo-text-primary">
+					Besoin de nos services ?
+				</h2>
+				<p class="text-lg mb-8">
+					Notre équipe est disponible pour vous accompagner dans tous vos projets de stérilisation.
+				</p>
+				<div class="flex flex-col sm:flex-row gap-4 justify-center">
+					<a href="/contact" class="btn-primary inline-block">
+						Nous Contacter
+					</a>
+					<a href="/expertise-metier" class="btn-secondary inline-block">
+						En savoir plus
+					</a>
+				</div>
+			</div>
+		</section>
+	</main>
+</BaseLayout>

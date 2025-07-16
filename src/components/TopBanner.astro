@@ -1,0 +1,35 @@
+---
+import { getParametresSite } from '../lib/directus';
+
+const parametres = await getParametresSite();
+---
+
+<div class="mvo-bg-dark text-white py-2">
+	<div class="container mx-auto px-4 max-w-6xl">
+		<div class="flex justify-between items-center text-sm">
+			<!-- Informations de contact rapides -->
+			<div class="hidden sm:flex items-center space-x-4">
+				{parametres?.telephone && (
+					<a href={`tel:${parametres.telephone}`} class="flex items-center hover:mvo-text-accent-light transition-colors">
+						<span class="mr-1">📞</span>
+						{parametres.telephone}
+					</a>
+				)}
+				{parametres?.email && (
+					<a href={`mailto:${parametres.email}`} class="flex items-center hover:mvo-text-accent-light transition-colors">
+						<span class="mr-1">✉️</span>
+						{parametres.email}
+					</a>
+				)}
+			</div>
+			
+			<!-- Navigation rapide -->
+			<div class="flex items-center space-x-6">
+				<a href="/about" class="mvo-text-white hover:mvo-text-accent-light transition-colors">À propos</a>
+				<a href="/recrutement" class="mvo-text-white hover:mvo-text-accent-light transition-colors">Recrutement</a>
+				<a href="/actualites" class="mvo-text-white hover:mvo-text-accent-light transition-colors">Actualités</a>
+				<a href="/contact" class="mvo-text-white hover:mvo-text-accent-light transition-colors">Contact</a>
+			</div>
+		</div>
+	</div>
+</div>

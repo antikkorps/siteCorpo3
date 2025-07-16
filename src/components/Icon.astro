@@ -1,0 +1,70 @@
+---
+export interface Props {
+	name: string;
+	size?: number;
+	class?: string;
+}
+
+const { name, size = 32, class: className = '' } = Astro.props;
+
+// Bibliothèque d'icônes avec des noms parlants
+const icons = {
+	// Icônes de transport et logistique
+	truck: `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 24 24"><!-- Icon from Material Symbols by Google --><path fill="currentColor" d="M7 20q-1.25 0-2.125-.875T4 17H2.725q-.425 0-.713-.288T1.725 16t.288-.712t.712-.288h2.05q.425-.475 1-.737T7 14t1.225.263t1 .737H13.4l2.1-9H5.75q-.425 0-.712-.288T4.75 5t.288-.712T5.75 4h11q.5 0 .8.375t.175.85L17.075 8H19q.475 0 .9.213t.7.587l1.875 2.475q.275.35.35.763t0 .837L22.15 16.2q-.075.35-.35.575t-.625.225H20q0 1.25-.875 2.125T17 20t-2.125-.875T14 17h-4q0 1.25-.875 2.125T7 20m8.925-7h4.825l.1-.525L19 10h-2.375zm-2.475 1.825l.163-.725q.162-.725.412-1.775q.075-.325.15-.6t.125-.55l.163-.725q.162-.725.412-1.775t.413-1.775l.162-.725L15.5 6l-2.1 9zm-11.7-1.5q-.425 0-.712-.287t-.288-.713t.288-.712t.712-.288h3.5q.425 0 .713.288t.287.712t-.288.713t-.712.287zm2-3.65q-.425 0-.712-.288t-.288-.712t.288-.712t.712-.288h4.5q.425 0 .713.288t.287.712t-.288.713t-.712.287zM7 18q.425 0 .713-.288T8 17t-.288-.712T7 16t-.712.288T6 17t.288.713T7 18m10 0q.425 0 .713-.288T18 17t-.288-.712T17 16t-.712.288T16 17t.288.713T17 18"/></svg>`,
+	
+	cardboard: `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 512 512"><!-- Icon from Game Icons --><path fill="currentColor" d="M256 73.32L74.6 155.1l82.3 37.1l173.2-85.5zm95.4 42.98l-173.2 85.5l77.8 35.1l181.4-81.8zM61.7 169v182L247 434.6v-182zm388.6 0L265 252.6v182L450.3 351z"/></svg>`,
+	
+	tracking: `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 24 24"><!-- Icon from Gridicons --><path fill="currentColor" d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2m0 16H5V5h14zM9 17H7v-5h2zm4 0h-2v-7h2zm4 0h-2V7h2z"/></svg>`,
+	
+	// Icônes d'interface et technologie
+	computer: `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 24 24"><!-- Icon from Material Symbols Light --><path fill="currentColor" d="M2.27 19.462q-.214 0-.358-.144t-.143-.356t.144-.357t.356-.144h19.462q.213 0 .356.144t.144.356t-.144.357t-.356.144zm2.346-2q-.691 0-1.153-.463T3 15.846V6.077q0-.69.463-1.153t1.152-.462h14.77q.69 0 1.152.462T21 6.077v9.77q0 .69-.463 1.152t-1.153.463zm0-1h14.769q.23 0 .423-.193t.192-.423V6.077q0-.23-.192-.423q-.193-.193-.424-.193H4.616q-.231 0-.424.193Q4 5.846 4 6.077v9.77q0 .23.192.422t.423.193m-.615 0v-11z"/></svg>`,
+	
+	chart: `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 24 24"><!-- Icon from Gridicons --><path fill="currentColor" d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2m0 16H5V5h14zM9 17H7v-5h2zm4 0h-2v-7h2zm4 0h-2V7h2z"/></svg>`,
+	
+	integration: `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 24 24"><!-- Icon from Akar Icons --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M13.544 10.456a4.37 4.37 0 0 0-6.176 0l-3.089 3.088a4.367 4.367 0 1 0 6.177 6.177L12 18.177"/><path d="M10.456 13.544a4.37 4.37 0 0 0 6.176 0l3.089-3.088a4.367 4.367 0 1 0-6.177-6.177L12 5.823"/></g></svg>`,
+	
+	// Icônes médicales et scientifiques
+	microscope: `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 24 24"><!-- Icon from Covid Icons --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="M6.047 9.375a3 3 0 1 0 0-6a3 3 0 0 0 0 6m-.5-8.25h1m-.5 0v2.25m3.359-1.066l.707.707m-.354-.353L8.168 4.254m3.129 1.621v1m0-.5h-2.25m1.066 3.359l-.707.707m.353-.354L8.168 8.496m-1.621 3.129h-1m.5 0v-2.25m-3.359 1.066l-.707-.707m.354.353l1.591-1.591M.797 6.875v-1m0 .5h2.25M1.981 3.016l.707-.707m-.353.354l1.591 1.591M18.146 9.1a6.134 6.134 0 0 1 .315 9.07a6.4 6.4 0 0 1-8.941 0a6.2 6.2 0 0 1-1.558-2.52"/><path d="M16.151 11.054a.913.913 0 0 1-1.277 0L13.6 9.8a.875.875 0 0 1 0-1.254l3.832-3.764a.915.915 0 0 1 1.277 0l1.277 1.255a.875.875 0 0 1 0 1.254z"/><path d="m19.168 5.236l2.59-2.592l-1.445-1.445m2.89 2.89l-1.445-1.445M5.797 15.65h5.058m-4.27 7.225h13.728m-6.503-2.89v2.89"/></g></svg>`,
+	
+	checklist: `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 24 24"><!-- Icon from Solar --><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12c0-4.714 0-7.071 1.464-8.536C4.93 2 7.286 2 12 2s7.071 0 8.535 1.464C22 4.93 22 7.286 22 12s0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M6 15.8L7.143 17L10 14M6 8.8L7.143 10L10 7"/><path stroke-linecap="round" d="M13 9h5m-5 7h5"/></g></svg>`,
+	
+	shield: `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 24 24"><!-- Icon from Material Symbols --><path fill="currentColor" d="M12 13q1.45 0 2.475-1.025T15.5 9.5t-1.025-2.475T12 6T9.525 7.025T8.5 9.5t1.025 2.475T12 13m0 9q-3.65-.925-5.825-4T4 11.1V5l8-3l8 3v6.1q0 3.825-2.175 6.9T12 22m0-2.1q1.475-.475 2.613-1.487t1.987-2.288q-1.075-.55-2.238-.837T12 15t-2.363.288t-2.237.837q.85 1.275 1.988 2.288T12 19.9"/></svg>`,
+	
+	// Icônes de formation et éducation
+	graduation: `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 24 24"><!-- Icon from Material Symbols --><path fill="currentColor" d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09v6h2V9zM5 15.99l3 1.64V16l-3-1.64zM12 19l-3-1.64V16l3 1.64z"/></svg>`,
+	
+	refresh: `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 24 24"><!-- Icon from Material Symbols --><path fill="currentColor" d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4z"/></svg>`,
+	
+	manager: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 512 512"><!-- Icon from IonIcons by Ben Sperry - https://github.com/ionic-team/ionicons/blob/main/LICENSE --><path fill="currentColor" d="M258.9 48C141.92 46.42 46.42 141.92 48 258.9c1.56 112.19 92.91 203.54 205.1 205.1c117 1.6 212.48-93.9 210.88-210.88C462.44 140.91 371.09 49.56 258.9 48m-3.68 152.11c.21-1.2.44-2.4.71-3.59a66.46 66.46 0 0 1 16.29-31.21c12.89-13.73 31.16-21.31 51.45-21.31a74 74 0 0 1 25.06 4.26a66.7 66.7 0 0 1 26.27 17.2a68.15 68.15 0 0 1 18 42.14a78.5 78.5 0 0 1 0 11.4a86.2 86.2 0 0 1-8.2 31q-.76 1.59-1.59 3.15c-1.11 2.07-2.3 4.1-3.58 6.06a79.5 79.5 0 0 1-8.63 11c-13.12 14-29.92 21.73-47.31 21.73a59.6 59.6 0 0 1-19.17-3.18a64 64 0 0 1-6.1-2.43a70.8 70.8 0 0 1-22.07-16.12a83.76 83.76 0 0 1-22-51.32q-.27-3.88-.18-7.68a75.6 75.6 0 0 1 1.05-11.08Zm-149.73 24.34a59.9 59.9 0 0 1 5.2-20.64a57 57 0 0 1 2.78-5.3a54.5 54.5 0 0 1 7.19-9.56a55.6 55.6 0 0 1 14-10.82a57 57 0 0 1 8.11-3.64a63.85 63.85 0 0 1 33.35-2.39a57 57 0 0 1 30.78 17a57.86 57.86 0 0 1 15.41 38.62c.05 2.11 0 4.23-.15 6.38a71.6 71.6 0 0 1-6 23.84a69.5 69.5 0 0 1-5.73 10.42a65.4 65.4 0 0 1-15.76 16.57c-1.5 1.07-3.06 2.07-4.67 3.07a54.2 54.2 0 0 1-10 4.65a49.3 49.3 0 0 1-16.2 2.76c-.93 0-1.86 0-2.78-.08a48 48 0 0 1-5.48-.62a51 51 0 0 1-5.35-1.23a53.5 53.5 0 0 1-7.72-2.89c-.84-.39-1.66-.8-2.48-1.23c-18-9.49-31.57-29.16-34.23-52.12c-.12-1.05-.22-2.1-.29-3.16a66.6 66.6 0 0 1 .02-9.63m53.92 178.6a177.27 177.27 0 0 1-61.94-70.65a4 4 0 0 1 1.62-5.26C117.67 316.69 141.4 311 163.82 311c17 0 30.7 2 42.69 5.88a8 8 0 0 1 2.59 13.77c-23.35 19-38.4 42.54-45.47 70.75a2.77 2.77 0 0 1-4.22 1.65M256 432a175.1 175.1 0 0 1-65.7-12.72a4 4 0 0 1-2.4-4.46c.4-2.05.84-3.92 1.23-5.48c7.12-28.43 24.76-52 51-68.18c23.29-14.35 53-22.25 83.52-22.25c31.16 0 60 7.58 83.48 21.91a2.72 2.72 0 0 1 .91 3.67A176.1 176.1 0 0 1 256 432"/><path fill="currentColor" d="M161 295.28a48 48 0 0 1-5.48-.62a48 48 0 0 0 5.48.62m-26.36-117.15a55.6 55.6 0 0 0-14 10.82a54.5 54.5 0 0 0-7.19 9.56a54.5 54.5 0 0 1 7.19-9.56a55.6 55.6 0 0 1 14-10.82m81.53 79.76a71.6 71.6 0 0 0 6-23.84c.15-2.15.2-4.27.15-6.38q.08 3.15-.15 6.38a71.6 71.6 0 0 1-6 23.84m-81.53-79.76a57 57 0 0 1 8.11-3.64a57 57 0 0 0-8.11 3.64m15.57 115.3a53.5 53.5 0 0 1-7.72-2.89a53.5 53.5 0 0 0 7.72 2.89m-44.43-56.24c2.66 23 16.26 42.63 34.23 52.12c-18.01-9.49-31.57-29.16-34.23-52.12M254.34 219a83.76 83.76 0 0 0 22 51.32a70.8 70.8 0 0 0 22.07 16.12a70.8 70.8 0 0 1-22.07-16.12a83.76 83.76 0 0 1-22-51.32q-.27-3.88-.18-7.68q-.09 3.75.18 7.68m50.16 69.82a64 64 0 0 1-6.1-2.43a64 64 0 0 0 6.1 2.43m-48.57-92.28a66.46 66.46 0 0 1 16.29-31.21a66.46 66.46 0 0 0-16.29 31.21M375 165.46a68.15 68.15 0 0 1 18 42.14a68.15 68.15 0 0 0-18-42.14a66.7 66.7 0 0 0-26.27-17.2a66.7 66.7 0 0 1 26.27 17.2M393 219a86.2 86.2 0 0 1-8.2 31a86.2 86.2 0 0 0 8.2-31m-138.84-7.73a75.6 75.6 0 0 1 1.06-11.14a75.6 75.6 0 0 0-1.06 11.14m-47.28-22.22a57.86 57.86 0 0 1 15.41 38.62a57.86 57.86 0 0 0-15.41-38.62a57 57 0 0 0-30.78-17a57 57 0 0 1 30.78 17M190 288a54.2 54.2 0 0 1-10 4.65a54.2 54.2 0 0 0 10-4.65m-84.51-63.55a59.9 59.9 0 0 1 5.2-20.64a59.9 59.9 0 0 0-5.2 20.64m89.19 60.43C193.17 286 191.61 287 190 288c1.61-1 3.17-2 4.68-3.12m21.49-26.99a69.5 69.5 0 0 1-5.73 10.42a69.5 69.5 0 0 0 5.73-10.42m-105.48-54.08a57 57 0 0 1 2.78-5.3a57 57 0 0 0-2.78 5.3m83.99 81.07a65.4 65.4 0 0 0 15.76-16.57a65.4 65.4 0 0 1-15.76 16.57"/></svg>`,
+	
+	// Icônes de contact et communication
+	phone: `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 24 24"><!-- Icon from Material Symbols --><path fill="currentColor" d="M19.95 21q-3.125 0-6.187-1.35T8.2 15.8t-3.85-5.55T3 4.05V3h5.9l.925 5.025l-2.85 2.875q.55.975 1.225 1.85t1.45 1.625q.725.725 1.588 1.388T13.1 17l2.9-2.9l5 1.025V21z"/></svg>`,
+	
+	email: `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 24 24"><!-- Icon from Material Symbols --><path fill="currentColor" d="M4 20q-.825 0-1.412-.587T2 18V6q0-.825.588-1.412T4 4h16q.825 0 1.413.588T22 6v12q0 .825-.587 1.413T20 20zm8-7l8-5V6l-8 5l-8-5v2z"/></svg>`,
+	
+	location: `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 24 24"><!-- Icon from Material Symbols --><path fill="currentColor" d="M12 21.325q-.35 0-.7-.125t-.625-.375Q9.05 19.325 7.8 17.9t-2.087-2.762t-1.275-2.575T4 10.2q0-3.75 2.413-5.975T12 2t5.588 2.225T20 10.2q0 1.125-.437 2.363t-1.275 2.575T16.2 17.9t-2.875 2.925q-.275.25-.625.375t-.7.125M12 12q.825 0 1.413-.587T14 10t-.587-1.412T12 8t-1.412.588T10 10t.588 1.413T12 12"/></svg>`,
+	
+	// Icônes d'avantages sociaux
+	health: `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 24 24"><!-- Icon from Material Symbols --><path fill="currentColor" d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2m-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6m7 13c-.04-.21-.07-.42-.07-.65c0-1.77-1.46-3.21-3.23-3.21c-1.77 0-3.2 1.44-3.2 3.21c0 .23-.03.44-.07.65"/></svg>`,
+	
+	car: `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 24 24"><!-- Icon from Material Symbols --><path fill="currentColor" d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.22.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16m11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5s1.5.67 1.5 1.5s-.67 1.5-1.5 1.5M5 11l1.5-4.5h11L19 11z"/></svg>`,
+	
+	food: `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 24 24"><!-- Icon from Material Symbols --><path fill="currentColor" d="M8.1 13.34l2.83-2.83L3.91 3.5c-1.56 1.56-1.56 4.09 0 5.66l4.19 4.18m6.78-1.81c1.53.71 3.68.21 5.27-1.38c1.91-1.91 2.28-4.65.81-6.12c-1.46-1.46-4.2-1.1-6.12.81c-1.59 1.59-2.09 3.74-1.38 5.27L3.7 19.87l1.41 1.41L12 14.41l6.88 6.88l1.41-1.41L13.41 13z"/></svg>`,
+	
+	// Icônes générales
+	star: `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 24 24"><!-- Icon from Material Symbols --><path fill="currentColor" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2L9.19 8.63L2 9.24l5.46 4.73L5.82 21z"/></svg>`,
+	
+	arrow: `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 24 24"><!-- Icon from Material Symbols --><path fill="currentColor" d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>`,
+	
+	home: `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 24 24"><!-- Icon from Material Symbols --><path fill="currentColor" d="M10 20v-6h4v6h5v-8h3L12 3L2 12h3v8z"/></svg>`,
+
+	efficiency: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Remix Icon by Remix Design - https://github.com/Remix-Design/RemixIcon/blob/master/License --><path fill="currentColor" d="M6.382 5.968A8.96 8.96 0 0 1 12 4c2.125 0 4.078.736 5.618 1.968l1.453-1.453l1.414 1.414l-1.453 1.453A9 9 0 1 1 3 13c0-2.125.736-4.078 1.968-5.618L3.515 5.93l1.414-1.414zM13 12V7.495L8 14h3v4.5l5-6.5zM8 1h8v2H8z"/></svg>`,
+	money: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2S2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22Z"/><path stroke-linecap="round" d="M12 15.333c1.105 0 2-.746 2-1.666S13.105 12 12 12s-2-.746-2-1.667c0-.92.895-1.666 2-1.666m0 6.666c-1.105 0-2-.746-2-1.666m2 1.666V16m0-8v.667m0 0c1.105 0 2 .746 2 1.666"/></g></svg>`,
+	
+	
+};
+
+const iconSvg = icons[name as keyof typeof icons] || icons.star;
+---
+
+<span class={`icon ${className}`} set:html={iconSvg}></span> 

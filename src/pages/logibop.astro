@@ -1,0 +1,152 @@
+---
+import Icon from '../components/Icon.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getParametresSite } from '../lib/directus';
+
+const parametres = await getParametresSite();
+---
+
+<BaseLayout title="Logibop - MVO Stérilisation" description="Découvrez Logibop, notre solution innovante de gestion logistique pour la stérilisation médicale.">
+	<main>
+		<!-- Hero Section -->
+		<section class="mvo-gradient text-white py-20">
+			<div class="container mx-auto px-4 max-w-6xl">
+				<div class="text-center">
+					<h1 class="text-4xl md:text-5xl font-bold mb-6">
+						Logibop
+					</h1>
+					<p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
+						Solution innovante de gestion logistique pour optimiser vos processus de stérilisation médicale.
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- Présentation Logibop -->
+		<section class="py-16">
+			<div class="container mx-auto px-4 max-w-6xl">
+				<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+					<div>
+						<h2 class="text-3xl font-bold mb-6 mvo-text-primary">
+							Qu'est-ce que Logibop ?
+						</h2>
+						<p class="text-lg mb-6">
+							Logibop est notre solution logicielle dédiée à la gestion logistique de la stérilisation médicale. 
+							Cette plateforme innovante permet d'optimiser et de digitaliser l'ensemble de vos processus.
+						</p>
+						<p class="text-lg mb-8">
+							De la réception des dispositifs à leur livraison, en passant par la stérilisation et le conditionnement, 
+							Logibop assure une traçabilité complète et une gestion efficace de vos flux.
+						</p>
+						
+						<div class="space-y-4">
+							<div class="flex items-start">
+								<Icon name="computer" size={32} class="mr-3" />
+								<div>
+									<h3 class="font-semibold mb-2">Interface Intuitive</h3>
+									<p class="text-gray-600">Interface utilisateur simple et ergonomique</p>
+								</div>
+							</div>
+							<div class="flex items-start">
+								<Icon name="chart" size={32} class="mr-3" />
+								<div>
+									<h3 class="font-semibold mb-2">Tableaux de Bord</h3>
+									<p class="text-gray-600">Suivi en temps réel de vos indicateurs clés</p>
+								</div>
+							</div>
+							<div class="flex items-start">
+								<Icon name="integration" size={32} class="mr-3" />
+								<div>
+									<h3 class="font-semibold mb-2">Intégration</h3>
+									<p class="text-gray-600">Compatible avec vos systèmes existants</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="mvo-bg-gray-10 p-8 rounded-lg">
+						<h3 class="text-2xl font-bold mb-6 mvo-text-primary">
+							Fonctionnalités Principales
+						</h3>
+						<ul class="space-y-4">
+							<li class="flex items-center">
+								<span class="w-2 h-2 mvo-bg-accent rounded-full mr-3"></span>
+								Gestion des commandes et planning
+							</li>
+							<li class="flex items-center">
+								<span class="w-2 h-2 mvo-bg-accent rounded-full mr-3"></span>
+								Suivi des cycles de stérilisation
+							</li>
+							<li class="flex items-center">
+								<span class="w-2 h-2 mvo-bg-accent rounded-full mr-3"></span>
+								Traçabilité des dispositifs
+							</li>
+							<li class="flex items-center">
+								<span class="w-2 h-2 mvo-bg-accent rounded-full mr-3"></span>
+								Gestion des stocks et alertes
+							</li>
+							<li class="flex items-center">
+								<span class="w-2 h-2 mvo-bg-accent rounded-full mr-3"></span>
+								Rapports et statistiques
+							</li>
+							<li class="flex items-center">
+								<span class="w-2 h-2 mvo-bg-accent rounded-full mr-3"></span>
+								Notifications automatiques
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Avantages -->
+		<section class="mvo-bg-gray-10 py-16">
+			<div class="container mx-auto px-4 max-w-6xl">
+				<h2 class="text-3xl font-bold text-center mb-12 mvo-text-primary">
+					Les Avantages de Logibop
+				</h2>
+				
+				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+					<div class="text-center">
+						<div class="w-16 h-16 mvo-bg-primary rounded-full flex items-center justify-center text-white text-2xl mb-4 mx-auto">
+							<Icon name="efficiency" size={32} />
+						</div>
+						<h3 class="text-lg font-semibold mb-2">Efficacité</h3>
+						<p class="text-gray-600">Optimisation des processus et réduction des délais</p>
+					</div>
+					
+					<div class="text-center">
+						<div class="w-16 h-16 mvo-bg-secondary rounded-full flex items-center justify-center text-white text-2xl mb-4 mx-auto">
+							<Icon name="shield" size={32} />
+						</div>
+						<h3 class="text-lg font-semibold mb-2">Sécurité</h3>
+						<p class="text-gray-600">Traçabilité complète et conformité réglementaire</p>
+					</div>
+					
+					<div class="text-center">
+						<div class="w-16 h-16 mvo-bg-accent rounded-full flex items-center justify-center text-white text-2xl mb-4 mx-auto">
+							<Icon name="money" size={32} />
+						</div>
+						<h3 class="text-lg font-semibold mb-2">Économies</h3>
+						<p class="text-gray-600">Réduction des coûts et optimisation des ressources</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- CTA Section -->
+		<section class="py-16">
+			<div class="container mx-auto px-4 max-w-4xl text-center">
+				<h2 class="text-3xl font-bold mb-6 mvo-text-primary">
+					Prêt à digitaliser vos processus ?
+				</h2>
+				<p class="text-lg mb-8">
+					Découvrez comment Logibop peut transformer votre gestion de la stérilisation.
+				</p>
+				<a href="/contact" class="btn-primary inline-block">
+					Demander une Démo
+				</a>
+			</div>
+		</section>
+	</main>
+</BaseLayout>
