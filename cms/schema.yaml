@@ -6,7 +6,7 @@ collections:
   - collection: pages
     meta:
       collection: pages
-      icon: page
+      icon: article
       note: Pages du site
       display_template: "{{titre}}"
       hidden: false

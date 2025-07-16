@@ -2,20 +2,33 @@
 
 /* Variables CSS pour les couleurs MVO Stérilisation */
 :root {
-  /* Couleurs principales MVO */
-  --mvo-blue: #32697b;
-  --mvo-green: #6f9d2b;
-  --mvo-orange: #ff6600;
+  /* Couleurs principales de la charte graphique */
+  --mvo-primary: #3a899d;
+  --mvo-secondary: #426f83;
+  --mvo-dark: #263443;
+  --mvo-accent: #bdac3a;
+  --mvo-green: #3c6634;
+  --mvo-dark-green: #182918;
 
-  /* Dégradé officiel MVO */
+  /* Dégradé officiel MVO (on y touche pas) */
   --mvo-gradient-from: #263443;
   --mvo-gradient-to: #3a899d;
 
-  /* Couleurs secondaires */
-  --mvo-light-blue: #4a8ba8;
-  --mvo-light-green: #8bb84a;
-  --mvo-dark-blue: #1e4a5a;
-  --mvo-dark-green: #4a6b1e;
+  /* Couleurs avec 50% d'opacité */
+  --mvo-primary-50: rgba(58, 137, 157, 0.5);
+  --mvo-secondary-50: rgba(66, 111, 131, 0.5);
+  --mvo-dark-50: rgba(38, 52, 67, 0.5);
+  --mvo-accent-50: rgba(189, 172, 58, 0.5);
+  --mvo-green-50: rgba(60, 102, 52, 0.5);
+  --mvo-dark-green-50: rgba(24, 41, 24, 0.5);
+
+  /* Couleurs avec 20% d'opacité */
+  --mvo-primary-20: rgba(58, 137, 157, 0.2);
+  --mvo-secondary-20: rgba(66, 111, 131, 0.2);
+  --mvo-dark-20: rgba(38, 52, 67, 0.2);
+  --mvo-accent-20: rgba(189, 172, 58, 0.2);
+  --mvo-green-20: rgba(60, 102, 52, 0.2);
+  --mvo-dark-green-20: rgba(24, 41, 24, 0.2);
 
   /* Couleurs neutres */
   --mvo-white: #ffffff;
@@ -25,10 +38,10 @@
   --mvo-black: #000000;
 
   /* Couleurs sémantiques */
-  --mvo-success: #6f9d2b;
-  --mvo-warning: #ff6600;
+  --mvo-success: #3c6634;
+  --mvo-warning: #bdac3a;
   --mvo-error: #dc3545;
-  --mvo-info: #32697b;
+  --mvo-info: #3a899d;
 }
 
 /* Styles de base */
@@ -48,28 +61,102 @@ code {
 }
 
 /* Styles pour les couleurs MVO */
-.mvo-text-blue {
-  color: var(--mvo-blue);
+.mvo-text-primary {
+  color: var(--mvo-primary);
+}
+
+.mvo-text-secondary {
+  color: var(--mvo-secondary);
+}
+
+.mvo-text-dark {
+  color: var(--mvo-dark);
+}
+
+.mvo-text-accent {
+  color: var(--mvo-accent);
 }
 
 .mvo-text-green {
   color: var(--mvo-green);
 }
 
-.mvo-text-orange {
-  color: var(--mvo-orange);
+.mvo-text-dark-green {
+  color: var(--mvo-dark-green);
 }
 
-.mvo-bg-blue {
-  background-color: var(--mvo-blue);
+.mvo-bg-primary {
+  background-color: var(--mvo-primary);
+}
+
+.mvo-bg-secondary {
+  background-color: var(--mvo-secondary);
+}
+
+.mvo-bg-dark {
+  background-color: var(--mvo-dark);
+}
+
+.mvo-bg-accent {
+  background-color: var(--mvo-accent);
 }
 
 .mvo-bg-green {
   background-color: var(--mvo-green);
 }
 
-.mvo-bg-orange {
-  background-color: var(--mvo-orange);
+.mvo-bg-dark-green {
+  background-color: var(--mvo-dark-green);
+}
+
+/* Classes avec opacité 50% */
+.mvo-bg-primary-50 {
+  background-color: var(--mvo-primary-50);
+}
+
+.mvo-bg-secondary-50 {
+  background-color: var(--mvo-secondary-50);
+}
+
+.mvo-bg-dark-50 {
+  background-color: var(--mvo-dark-50);
+}
+
+.mvo-bg-accent-50 {
+  background-color: var(--mvo-accent-50);
+}
+
+.mvo-bg-green-50 {
+  background-color: var(--mvo-green-50);
+}
+
+.mvo-bg-dark-green-50 {
+  background-color: var(--mvo-dark-green-50);
+}
+
+/* Classes avec opacité 20% */
+.mvo-bg-primary-20 {
+  background-color: var(--mvo-primary-20);
+}
+
+.mvo-bg-secondary-20 {
+  background-color: var(--mvo-secondary-20);
+}
+
+.mvo-bg-dark-20 {
+  background-color: var(--mvo-dark-20);
+}
+
+.mvo-bg-accent-20 {
+  background-color: var(--mvo-accent-20);
+}
+
+.mvo-bg-green-20 {
+  background-color: var(--mvo-green-20);
+}
+
+.mvo-bg-dark-green-20 {
+  background-color: var(--mvo-dark-green-20);
 }
 
 .mvo-gradient {
@@ -82,7 +169,7 @@ code {
 
 /* Styles pour les boutons */
 .btn-primary {
-  background-color: var(--mvo-blue);
+  background-color: var(--mvo-primary);
   color: var(--mvo-white);
   border: none;
   padding: 0.75rem 1.5rem;
@@ -92,11 +179,11 @@ code {
 }
 
 .btn-primary:hover {
-  background-color: var(--mvo-dark-blue);
+  background-color: var(--mvo-dark);
 }
 
 .btn-secondary {
-  background-color: var(--mvo-green);
+  background-color: var(--mvo-secondary);
   color: var(--mvo-white);
   border: none;
   padding: 0.75rem 1.5rem;
@@ -106,7 +193,21 @@ code {
 }
 
 .btn-secondary:hover {
-  background-color: var(--mvo-dark-green);
+  background-color: var(--mvo-dark);
+}
+
+.btn-accent {
+  background-color: var(--mvo-accent);
+  color: var(--mvo-white);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.375rem;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.btn-accent:hover {
+  background-color: var(--mvo-accent-50);
 }
 
 /* Styles pour les cartes */
@@ -125,13 +226,13 @@ code {
 
 /* Styles pour les liens */
 a {
-  color: var(--mvo-blue);
+  color: var(--mvo-primary);
   text-decoration: none;
   transition: color 0.2s;
 }
 
 a:hover {
-  color: var(--mvo-dark-blue);
+  color: var(--mvo-dark);
 }
 
 /* Styles pour le texte */
