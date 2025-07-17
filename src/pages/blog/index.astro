@@ -1,114 +1,96 @@
 ---
-import BaseHead from '../../components/BaseHead.astro';
-import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
+import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import FormattedDate from '../../components/FormattedDate.astro';
-import { Image } from 'astro:assets';
+import { SITE_TITLE } from '../../consts';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
+
+const SITE_TITLE_BLOG = `${SITE_TITLE} - Blog`;
+const SITE_DESCRIPTION_BLOG = 'Actualités et articles sur la stérilisation médicale';
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-		<style>
-			main {
-				width: 960px;
-			}
-			ul {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 2rem;
-				list-style-type: none;
-				margin: 0;
-				padding: 0;
-			}
-			ul li {
-				width: calc(50% - 1rem);
-			}
-			ul li * {
-				text-decoration: none;
-				transition: 0.2s ease;
-			}
-			ul li:first-child {
-				width: 100%;
-				margin-bottom: 1rem;
-				text-align: center;
-			}
-			ul li:first-child img {
-				width: 100%;
-			}
-			ul li:first-child .title {
-				font-size: 2.369rem;
-			}
-			ul li img {
-				margin-bottom: 0.5rem;
-				border-radius: 12px;
-			}
-			ul li a {
-				display: block;
-			}
-			.title {
-				margin: 0;
-				color: rgb(var(--black));
-				line-height: 1;
-			}
-			.date {
-				margin: 0;
-				color: rgb(var(--gray));
-			}
-			ul li a:hover h4,
-			ul li a:hover .date {
-				color: rgb(var(--accent));
-			}
-			ul a:hover img {
-				box-shadow: var(--box-shadow);
-			}
-			@media (max-width: 720px) {
-				ul {
-					gap: 0.5em;
-				}
-				ul li {
-					width: 100%;
-					text-align: center;
-				}
-				ul li:first-child {
-					margin-bottom: 0;
-				}
-				ul li:first-child .title {
-					font-size: 1.563em;
-				}
-			}
-		</style>
-	</head>
-	<body>
-		<Header />
-		<main>
-			<section>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.id}/`}>
+<BaseLayout title={SITE_TITLE_BLOG} description={SITE_DESCRIPTION_BLOG}>
+	<!-- Hero Section -->
+	<section class="mvo-gradient text-white py-16 text-center">
+		<div class="container mx-auto px-4 max-w-6xl">
+			<h1 class="text-4xl md:text-5xl font-bold mb-4">
+				Blog & Actualités
+			</h1>
+			<p class="text-xl opacity-90 max-w-2xl mx-auto">
+				Découvrez nos derniers articles sur la stérilisation médicale et les innovations du secteur
+			</p>
+		</div>
+	</section>
+
+	<!-- Articles Section -->
+	<section class="py-16">
+		<div class="container mx-auto px-4 max-w-6xl">
+			{posts.length > 0 ? (
+				<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+					{posts.map((post, index) => (
+						<article class={`group ${index === 0 ? 'lg:col-span-2' : ''}`}>
+							<a href={`/blog/${post.id}/`} class="block">
+								<div class="card overflow-hidden hover:shadow-xl transition-all duration-300 h-full">
 									{post.data.heroImage && (
-										<Image width={720} height={360} src={post.data.heroImage} alt="" />
+										<div class={`relative overflow-hidden ${index === 0 ? 'h-80' : 'h-48'}`}>
+											<Image 
+												width={720} 
+												height={360} 
+												src={post.data.heroImage} 
+												alt={post.data.title}
+												class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+											/>
+											<div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+										</div>
 									)}
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
-										<FormattedDate date={post.data.pubDate} />
-									</p>
-								</a>
-							</li>
-						))
-					}
-				</ul>
-			</section>
-		</main>
-		<Footer />
-	</body>
-</html>
+									
+									<div class="p-6 flex flex-col h-full">
+										<div class="flex items-center text-sm text-gray-500 mb-3">
+											<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+											</svg>
+											<FormattedDate date={post.data.pubDate} />
+										</div>
+										
+										<h2 class={`font-bold text-gray-800 mb-3 group-hover:text-mvo-primary transition-colors ${
+											index === 0 ? 'text-2xl md:text-3xl' : 'text-xl'
+										}`}>
+											{post.data.title}
+										</h2>
+										
+										{post.data.description && (
+											<p class="text-gray-600 leading-relaxed mb-4 flex-grow">
+												{post.data.description}
+											</p>
+										)}
+										
+										<div class="flex items-center text-mvo-primary font-medium group-hover:text-mvo-dark transition-colors">
+											<span>Lire l'article</span>
+											<svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+											</svg>
+										</div>
+									</div>
+								</div>
+							</a>
+						</article>
+					))}
+				</div>
+			) : (
+				<div class="text-center py-16">
+					<div class="w-24 h-24 mvo-bg-gray-10 rounded-full flex items-center justify-center mx-auto mb-6">
+						<svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
+						</svg>
+					</div>
+					<h3 class="text-2xl font-semibold text-gray-800 mb-2">Aucun article pour le moment</h3>
+					<p class="text-gray-600">Les articles seront bientôt disponibles.</p>
+				</div>
+			)}
+		</div>
+	</section>
+</BaseLayout>
