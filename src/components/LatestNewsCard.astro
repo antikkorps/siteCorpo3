@@ -1,0 +1,120 @@
+---
+// Composant LatestNewsCard pour afficher une carte d'actualité
+export interface Props {
+	actualite: {
+		id: number;
+		titre: string;
+		sous_titre?: string;
+		contenu: string;
+		date_publication?: string;
+		date_created: string;
+		slug: string;
+		image_principale?: {
+			id: string;
+			filename_download: string;
+			width: number;
+			height: number;
+		} | null;
+	};
+	index: number;
+	isDemo?: boolean;
+}
+
+const { actualite, index, isDemo = false } = Astro.props;
+
+// Images de fallback Unsplash pour les articles de démonstration
+const fallbackImages = [
+	"https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=200&fit=crop&crop=center",
+	"https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=400&h=200&fit=crop&crop=center", 
+	"https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=200&fit=crop&crop=center"
+];
+
+// Couleurs de la charte MVO pour les éléments décoratifs
+const mvoColors = ['mvo-accent', 'mvo-primary', 'mvo-green'];
+const currentColor = mvoColors[index % mvoColors.length];
+
+import { getImageUrl } from '../lib/directus';
+---
+
+<article class="group relative h-full animate-cards">
+	<!-- Carte principale -->
+	<div class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 relative z-10 h-full flex flex-col">
+		{/* Image avec overlay */}
+		<div class="relative h-48 overflow-hidden flex-shrink-0">
+			{actualite.image_principale ? (
+				<img 
+					src={getImageUrl(actualite.image_principale, 400, 200)} 
+					alt={actualite.titre}
+					class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+				/>
+			) : (
+				<img 
+					src={fallbackImages[index % fallbackImages.length]}
+					alt={actualite.titre}
+					class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+				/>
+			)}
+			
+			{/* Overlay avec date */}
+			<div class="absolute top-4 left-4 bg-white bg-opacity-90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-medium text-mvo-primary">
+				{new Date(actualite.date_publication || actualite.date_created).toLocaleDateString('fr-FR', {
+					day: 'numeric',
+					month: 'short'
+				})}
+			</div>
+			
+			{/* Badge "Nouveau" pour la première actualité */}
+			{index === 0 && (
+				<div class="absolute top-4 right-4 bg-mvo-accent text-white px-3 py-1 rounded-full text-sm font-medium">
+					Nouveau
+				</div>
+			)}
+
+			{/* Badge "Demo" pour les articles de démonstration */}
+			{isDemo && (
+				<div class="absolute bottom-4 right-4 bg-gray-500 text-white px-2 py-1 rounded text-xs font-medium">
+					Demo
+				</div>
+			)}
+		</div>
+
+		{/* Contenu */}
+		<div class="p-6 flex-grow flex flex-col">
+			<h3 class="text-xl font-bold mb-3 text-gray-800 group-hover:text-mvo-primary transition-colors duration-300 line-clamp-2 flex-shrink-0 animate-text">
+				{actualite.titre}
+			</h3>
+			
+			{actualite.sous_titre && (
+				<p class="text-mvo-accent font-medium mb-3 text-sm flex-shrink-0">
+					{actualite.sous_titre}
+				</p>
+			)}
+			
+			<p class="text-gray-600 leading-relaxed mb-4 line-clamp-3 flex-grow">
+				{actualite.contenu.substring(0, 120)}...
+			</p>
+			
+			{/* Lien "Lire la suite" avec animation */}
+			<div class="flex-shrink-0 mt-auto">
+				{isDemo ? (
+					<span class="inline-flex items-center text-gray-400 font-semibold cursor-not-allowed">
+						Lire la suite
+						<svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+						</svg>
+					</span>
+				) : (
+					<a href={`/actualites/${actualite.slug}`} class="inline-flex items-center text-mvo-primary font-semibold hover:text-mvo-dark transition-colors duration-300 group-hover:translate-x-1">
+						Lire la suite
+						<svg class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+						</svg>
+					</a>
+				)}
+			</div>
+		</div>
+	</div>
+
+	{/* Élément décoratif en arrière-plan */}
+	<div class={`absolute -bottom-2 -right-2 w-full h-full rounded-2xl transform rotate-3 transition-all duration-500 group-hover:rotate-6 bg-${currentColor} opacity-20 group-hover:opacity-30`}></div>
+</article> 

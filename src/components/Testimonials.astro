@@ -53,9 +53,9 @@ if (!temoignages || temoignages.length === 0) {
 			Témoignages Clients
 		</h2>
 		
-		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-cards">
+		<div class="testimonials-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-cards">
 			{temoignages.map((temoignage) => (
-				<div class="card p-6 h-80 flex flex-col">
+				<div class="testimonial-card p-6 flex flex-col">
 					<div class="flex items-center mb-4 flex-shrink-0">
 						<div class="w-12 h-12 mvo-bg-green rounded-full flex items-center justify-center text-white font-semibold text-lg mr-4 flex-shrink-0">
 							{temoignage.prenom_client.charAt(0)}
@@ -91,6 +91,40 @@ if (!temoignages || temoignages.length === 0) {
 		</div>
 	</div>
 </section>
+
+<style>
+	/* Styles spécifiques aux témoignages */
+	.testimonial-card {
+		background: rgba(255, 255, 255, 0.95);
+		border-radius: 16px;
+		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+		border: 1px solid rgba(255, 255, 255, 0.2);
+		transition: all 0.3s ease;
+		backdrop-filter: blur(10px);
+		height: 320px; /* Hauteur fixe pour uniformité */
+	}
+
+	.testimonial-card:hover {
+		transform: translateY(-4px);
+		box-shadow: 0 12px 48px rgba(0, 0, 0, 0.12);
+		border-color: rgba(16, 185, 129, 0.2);
+	}
+
+	/* Assurer l'uniformité des cartes dans la grille */
+	.testimonials-grid .testimonial-card {
+		height: 320px;
+		min-height: 320px;
+	}
+
+	/* Styles pour le texte tronqué */
+	.line-clamp-4 {
+		display: -webkit-box;
+		-webkit-line-clamp: 4;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+</style>
 
 <script define:vars={{ temoignages }}>
 	let modal = null;

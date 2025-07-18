@@ -49,49 +49,72 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 			}
 		});
 
-		// Animation des cartes en cascade
-		gsap.from('.animate-cards .card, .animate-cards .stat-item', {
-			duration: 0.6,
-			y: 40,
-			opacity: 0,
-			stagger: 0.1,
-			ease: 'power3.out',
-			scrollTrigger: {
-				trigger: '.animate-cards',
-				start: 'top 80%',
-				end: 'bottom 20%',
-				toggleActions: 'play none none reverse'
+		// Animation des cartes en cascade (par sections)
+		document.querySelectorAll('.animate-cards').forEach((cardContainer) => {
+			const cards = cardContainer.querySelectorAll('.card, .stat-item, .expertise-card, .testimonial-card, .news-card');
+			if (cards.length > 0) {
+				gsap.fromTo(cards, 
+					{
+						y: 40,
+						opacity: 0
+					},
+					{
+						duration: 0.6,
+						y: 0,
+						opacity: 1,
+						stagger: 0.1,
+						ease: 'power3.out',
+						scrollTrigger: {
+							trigger: cardContainer,
+							start: 'top 80%',
+							end: 'bottom 20%',
+							toggleActions: 'play reverse play reverse'
+						}
+					}
+				);
 			}
 		});
 
-		// Animation des icônes
-		gsap.from('.animate-icons .w-16, .animate-icons .w-12', {
-			duration: 0.8,
-			scale: 0,
-			rotation: 180,
-			ease: 'back.out(1.7)',
-			stagger: 0.1,
-			scrollTrigger: {
-				trigger: '.animate-icons',
-				start: 'top 80%',
-				end: 'bottom 20%',
-				toggleActions: 'play none none reverse'
+		// Animation des icônes (par sections)
+		document.querySelectorAll('.animate-icons').forEach((iconContainer) => {
+			const iconElements = iconContainer.querySelectorAll('.w-16, .w-12, .w-20, .w-24, .icon, svg');
+			if (iconElements.length > 0) {
+				gsap.from(iconElements, {
+					duration: 0.8,
+					scale: 0,
+					rotation: 180,
+					ease: 'back.out(1.7)',
+					stagger: 0.1,
+					scrollTrigger: {
+						trigger: iconContainer,
+						start: 'top 80%',
+						end: 'bottom 20%',
+						toggleActions: 'play reverse play reverse'
+					}
+				});
 			}
 		});
 
-		// Animation du texte avec slide in/out
-		gsap.from('.animate-text', {
-			duration: 1,
-			x: -100,
-			opacity: 0,
-			ease: 'power3.out',
-			stagger: 0.2,
-			scrollTrigger: {
-				trigger: '.animate-text',
-				start: 'top 80%',
-				end: 'bottom 20%',
-				toggleActions: 'play none none reverse'
-			}
+		// Animation du texte avec slide in/out (par sections)
+		document.querySelectorAll('.animate-text').forEach((textElement) => {
+			gsap.fromTo(textElement,
+				{
+					x: -100,
+					opacity: 0
+				},
+				{
+					duration: 1,
+					x: 0,
+					opacity: 1,
+					ease: 'power3.out',
+					scrollTrigger: {
+						trigger: textElement,
+						start: 'top 80%',
+						end: 'bottom 20%',
+						toggleActions: 'play reverse play reverse'
+					}
+				}
+			);
 		});
 
 		// Animation de Section
@@ -129,10 +152,32 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
         ease: 'power3.out',
         stagger: 0.2,
         scrollTrigger: {
-          trigger: '.animate-section',
+          trigger: '.animate-section-no-reverse',
           start: 'top 70%',
           end: 'bottom 20%',
           toggleActions: 'play none none none',
+          markers: false
+        }
+      }
+    );
+
+    // Animation de Section droite (miroir avec entrée/sortie)
+    gsap.fromTo('.animate-section-right', 
+      {
+        x: 50,
+        opacity: 0
+      },
+      {
+        duration: 0.8,
+        x: 0,
+        opacity: 1,
+        ease: 'power3.out',
+        stagger: 0.2,
+        scrollTrigger: {
+          trigger: '.animate-section-right',
+          start: 'top 70%',
+          end: 'bottom 20%',
+          toggleActions: 'play reverse play reverse',
           markers: false
         }
       }
@@ -152,7 +197,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 		});
 
 		// Animation des images
-		gsap.from('.animate-images img', {
+		gsap.from('.animate-images img, .animate-images', {
 			duration: 1,
 			scale: 1.1,
 			opacity: 0,
@@ -166,19 +211,21 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 			}
 		});
 
-		// Animation des boutons
-		gsap.from('.animate-buttons a, .animate-buttons button', {
-			duration: 0.6,
-			y: 20,
-			opacity: 0,
-			ease: 'power3.out',
-			stagger: 0.1,
-			scrollTrigger: {
-				trigger: '.animate-buttons',
-				start: 'top 80%',
-				end: 'bottom 20%',
-				toggleActions: 'play none none reverse'
-			}
+		// Animation des boutons (par sections)
+		document.querySelectorAll('.animate-buttons').forEach((buttonContainer) => {
+			gsap.from(buttonContainer.querySelectorAll('a, button, .animate-buttons'), {
+				duration: 0.6,
+				y: 20,
+				opacity: 0,
+				ease: 'power3.out',
+				stagger: 0.1,
+				scrollTrigger: {
+					trigger: buttonContainer,
+					start: 'top 80%',
+					end: 'bottom 20%',
+					toggleActions: 'play none none reverse'
+				}
+			});
 		});
 	}
 

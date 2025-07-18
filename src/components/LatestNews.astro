@@ -1,0 +1,120 @@
+---
+// Composant LatestNews pour afficher les dernières actualités
+export interface Props {
+	limit?: number;
+}
+
+const { limit = 3 } = Astro.props;
+
+import { getActualites } from '../lib/directus';
+import LatestNewsCard from './LatestNewsCard.astro';
+
+// Récupération des actualités
+const actualites = await getActualites(limit);
+
+// Articles de démonstration si aucune actualité n'existe
+const demoArticles = [
+	{
+		id: 1,
+		titre: "Nouvelle technologie de stérilisation par plasma",
+		sous_titre: "Innovation",
+		contenu: "MVO lance une nouvelle technologie révolutionnaire de stérilisation par plasma froid, offrant une efficacité accrue et une réduction significative des temps de cycle. Cette innovation permet de traiter des dispositifs médicaux sensibles à la chaleur tout en garantissant une stérilisation optimale.",
+		date_publication: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(), // 2 jours ago
+		date_created: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
+		slug: "nouvelle-technologie-sterilisation-plasma",
+		image_principale: null
+	},
+	{
+		id: 2,
+		titre: "Certification ISO 13485 renouvelée",
+		sous_titre: "Certification",
+		contenu: "MVO Stérilisation a obtenu le renouvellement de sa certification ISO 13485 pour la gestion de la qualité des dispositifs médicaux. Cette certification confirme notre engagement continu envers l'excellence et la conformité aux normes internationales les plus strictes.",
+		date_publication: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(), // 5 jours ago
+		date_created: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
+		slug: "certification-iso-13485-renouvelee",
+		image_principale: null
+	},
+	{
+		id: 3,
+		titre: "Partenariat avec l'Institut Pasteur",
+		sous_titre: "Partenariat",
+		contenu: "MVO annonce un partenariat stratégique avec l'Institut Pasteur pour le développement de nouvelles méthodes de stérilisation adaptées aux laboratoires de recherche. Cette collaboration permettra d'améliorer les protocoles de sécurité biologique.",
+		date_publication: new Date(Date.now() - 8 * 24 * 60 * 60 * 1000).toISOString(), // 8 jours ago
+		date_created: new Date(Date.now() - 8 * 24 * 60 * 60 * 1000).toISOString(),
+		slug: "partenariat-institut-pasteur",
+		image_principale: null
+	}
+];
+
+// Utiliser les articles de démonstration si aucune actualité n'existe
+const articlesToDisplay = actualites.length > 0 ? actualites : demoArticles;
+const isDemo = actualites.length === 0;
+---
+
+<section class="py-20 bg-gradient-to-br from-mvo-light-gray via-white to-mvo-primary-light animate-on-scroll relative overflow-hidden">
+	<!-- Éléments décoratifs en arrière-plan -->
+	<div class="absolute top-0 left-0 w-full h-full overflow-hidden">
+		<div class="absolute top-20 left-10 w-32 h-32 bg-mvo-accent rounded-full opacity-5 animate-icons"></div>
+		<div class="absolute bottom-20 right-10 w-24 h-24 bg-mvo-primary rounded-full opacity-5 animate-icons"></div>
+		<div class="absolute top-1/2 left-1/4 w-16 h-16 bg-mvo-green rounded-full opacity-5 animate-icons"></div>
+	</div>
+
+	<div class="container mx-auto px-4 max-w-7xl relative z-10">
+		<!-- En-tête de section -->
+		<div class="text-center mb-16">
+			<div class="inline-flex items-center bg-mvo-primary text-white px-6 py-2 rounded-full text-sm font-medium mb-6 animate-buttons">
+				<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+				</svg>
+				{isDemo ? 'Dernières actualités' : 'Actualités récentes'}
+			</div>
+			<h2 class="text-4xl lg:text-5xl font-bold mb-6 mvo-text-primary animate-text">
+				Nos dernières actualités
+			</h2>
+			<p class="text-xl text-gray-600 max-w-3xl mx-auto animate-text">
+				{isDemo 
+					? 'Découvrez nos dernières innovations et actualités dans le domaine de la stérilisation médicale'
+					: 'Restez informé des dernières innovations et actualités du monde de la stérilisation médicale'
+				}
+			</p>
+			{isDemo && (
+				<div class="mt-4 inline-flex items-center bg-mvo-accent-light text-mvo-accent-dark px-4 py-2 rounded-lg text-sm font-medium animate-buttons">
+					<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+					</svg>
+					Contenu de démonstration
+				</div>
+			)}
+		</div>
+
+		<!-- Grille des actualités -->
+		<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12 animate-cards">
+			{articlesToDisplay.map((actualite, index) => (
+				<LatestNewsCard 
+					actualite={actualite} 
+					index={index} 
+					isDemo={isDemo}
+				/>
+			))}
+		</div>
+
+		<!-- Bouton "Voir toutes les actualités" -->
+		<div class="text-center animate-buttons">
+			{isDemo ? (
+				<div class="inline-flex items-center bg-gray-300 text-gray-500 px-8 py-4 rounded-xl font-semibold cursor-not-allowed">
+					<span>Voir toutes les actualités</span>
+					<svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+					</svg>
+				</div>
+			) : (
+				<a href="/actualites" class="inline-flex items-center mvo-bg-primary text-white px-8 py-4 rounded-xl font-semibold hover:mvo-bg-secondary hover:shadow-xl transition-all duration-300 transform hover:scale-105 group">
+					<span>Voir toutes les actualités</span>
+					<svg class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+					</svg>
+				</a>
+			)}
+		</div>
+	</div>
+</section> 

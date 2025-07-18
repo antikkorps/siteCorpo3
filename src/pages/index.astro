@@ -1,8 +1,11 @@
 ---
 import AnimatedCounter from '../components/AnimatedCounter.astro';
+import ExpertiseMetier from '../components/ExpertiseMetier.astro';
+import ExpertisesSection from '../components/ExpertisesSection.astro';
+import LatestNews from '../components/LatestNews.astro';
 import Testimonials from '../components/Testimonials.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getActualites, getImageUrl, getParametresSite, getServices, getTemoignages } from '../lib/directus';
+import { getActualites, getParametresSite, getServices, getTemoignages } from '../lib/directus';
 
 // Récupération des données
 const services = await getServices();
@@ -54,6 +57,15 @@ const SITE_DESCRIPTION = parametres?.description_site || 'Leader de la stérilis
 		</div>
 	</section>
 
+	<!-- Expertises Section -->
+	<ExpertisesSection />
+
+	<!-- Expertise Métier Section -->
+	<ExpertiseMetier />
+
+	<!-- Latest News Section -->
+	<LatestNews limit={3} />
+
 	<!-- Testimonials Section -->
 	<Testimonials />
 
@@ -88,39 +100,4 @@ const SITE_DESCRIPTION = parametres?.description_site || 'Leader de la stérilis
 			</div>
 		</div>
 	</section>
-
-	<!-- News Section -->
-	{actualites.length > 0 && (
-		<section class="py-16 animate-on-scroll">
-			<div class="container mx-auto px-4 max-w-6xl">
-				<h2 class="text-4xl md:text-5xl font-bold text-center mb-12 mvo-text-primary animate-text">
-					Actualités
-				</h2>
-				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-cards animate-images">
-					{actualites.map((actualite) => (
-						<article class="card overflow-hidden">
-							{actualite.image_principale && (
-								<img 
-									src={getImageUrl(actualite.image_principale, 400, 200)} 
-									alt={actualite.titre}
-									class="w-full h-48 object-cover"
-								/>
-							)}
-							<div class="p-6">
-								<div class="text-gray-500 text-sm mb-2">
-									{new Date(actualite.date_publication || actualite.date_created).toLocaleDateString('fr-FR')}
-								</div>
-								<h3 class="text-xl font-semibold mb-4 text-gray-700">
-									{actualite.titre}
-								</h3>
-								<p class="text-gray-600 leading-relaxed">
-									{actualite.contenu.substring(0, 150)}...
-								</p>
-							</div>
-						</article>
-					))}
-				</div>
-			</div>
-		</section>
-	)}
 </BaseLayout>
